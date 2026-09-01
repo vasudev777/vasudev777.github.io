@@ -532,12 +532,12 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
           <h3 class="font-display font-bold text-xl text-zinc-900 dark:text-white mb-2">Shram — Labour Hiring Marketplace</h3>
           <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">An end-to-end hiring & procurement platform connecting daily-wage artisans and builders with homeowners. Features 7 craft categories, virtual construction supplies store, Razorpay payments, and automated Dompdf invoicing. Backed by published research in IJARESM.</p>
           <div class="flex flex-wrap gap-3">
-            <button @click="shramModal = true" class="inline-flex items-center gap-1.5 text-sm font-medium text-white bg-accent px-4 py-2 rounded-full shimmer hover:bg-accent-light transition-all shadow-sm">
-              📖 Case Study
-            </button>
-            <a href="https://shram.free.nf/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-full hover:border-accent transition-colors">
+            <a href="https://shram.free.nf/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-sm font-medium text-white bg-accent px-4 py-2 rounded-full shimmer hover:bg-accent-light transition-colors">
               Live Demo →
             </a>
+            <button @click="shramModal = true" class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-full hover:border-accent transition-colors">
+              📖 Case Study
+            </button>
             <!-- Android App Download Button (Outlined Style) -->
             <a href="apks/Shram.apk" download="Shram.apk" class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-full hover:border-accent transition-colors">
               🤖 Download App
@@ -744,32 +744,101 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 
         <!-- 3. System Architecture Flow -->
         <div>
-          <h3 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-2">3. System Architecture & Workflow</h3>
-          <div class="bg-zinc-900 dark:bg-zinc-950 p-4 sm:p-5 rounded-2xl border border-zinc-800 font-mono text-xs text-zinc-300 overflow-x-auto leading-relaxed">
-<pre class="text-zinc-300">┌─────────────────────────────────────────────────────────────┐
-│                    Client Access Points                     │
-│            [ 📱 Android APK ]    [ 💻 Responsive Web ]      │
-└──────────────────────────────┬──────────────────────────────┘
-                               │ HTTPS
-                               ▼
-┌─────────────────────────────────────────────────────────────┐
-│                Application Tier (Core PHP)                  │
-│  ├── Auth: Email OTP via PHPMailer (SMTP) + Firebase Google │
-│  ├── Security: Bcrypt Hashing + .htaccess Protection        │
-│  ├── Payments: Razorpay Payment Gateway Integration         │
-│  ├── Invoicing: Dompdf Engine (Dynamic Receipt Generation)  │
-│  └── Store Controller: Construction Materials Catalog & Cart│
-└──────────────────────────────┬──────────────────────────────┘
-                               │ MySQLi / PDO Prepared Statements
-                               ▼
-┌─────────────────────────────────────────────────────────────┐
-│                       Database Tier                         │
-│                          (MySQL)                            │
-│  ├── `workers` (Profiles, 7 Craft Categories, Status)       │
-│  ├── `builders` & `hirings` (Booking records & details)     │
-│  ├── `store_products` & `orders` (Hardware inventory)       │
-│  └── `users` & `auth_logs`                                  │
-└─────────────────────────────────────────────────────────────┘</pre>
+          <h3 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-3">3. System Architecture & Workflow</h3>
+          <div class="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/70 dark:bg-zinc-950/70 p-4 sm:p-5 space-y-4">
+            
+            <!-- Tier 1: Client Layer -->
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[11px] font-bold tracking-wider uppercase text-zinc-400 dark:text-zinc-500">Tier 1 • Client Access Points</span>
+                <span class="text-[10px] bg-zinc-200/70 dark:bg-zinc-800 px-2 py-0.5 rounded text-zinc-600 dark:text-zinc-400 font-medium">Low-Bandwidth Optimized</span>
+              </div>
+              <div class="grid sm:grid-cols-2 gap-3">
+                <div class="p-3 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 flex items-center gap-3 shadow-xs">
+                  <div class="w-10 h-10 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center text-emerald-600 dark:text-emerald-400 text-xl shrink-0">📱</div>
+                  <div>
+                    <p class="font-bold text-xs text-zinc-900 dark:text-white">Native Android Wrapper (APK)</p>
+                    <p class="text-[11px] text-zinc-500 dark:text-zinc-400">Direct on-site artisan access, standalone APK</p>
+                  </div>
+                </div>
+                <div class="p-3 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 flex items-center gap-3 shadow-xs">
+                  <div class="w-10 h-10 rounded-lg bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800 flex items-center justify-center text-blue-600 dark:text-blue-400 text-xl shrink-0">💻</div>
+                  <div>
+                    <p class="font-bold text-xs text-zinc-900 dark:text-white">Responsive Web Platform</p>
+                    <p class="text-[11px] text-zinc-500 dark:text-zinc-400">Fast SSR + Tailwind, sub-100KB payload</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Connector 1 -->
+            <div class="flex items-center justify-center relative py-1">
+              <div class="h-6 w-px bg-zinc-300 dark:bg-zinc-700"></div>
+              <span class="absolute text-[10px] font-mono bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-300 px-2 py-0.5 rounded-full shadow-xs">HTTPS Protocol</span>
+            </div>
+
+            <!-- Tier 2: Application Tier -->
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[11px] font-bold tracking-wider uppercase text-zinc-400 dark:text-zinc-500">Tier 2 • Application Tier (Core PHP)</span>
+                <span class="text-[10px] bg-accent/10 border border-accent/20 px-2 py-0.5 rounded text-accent font-medium">Server-Side Rendered (SSR)</span>
+              </div>
+              <div class="grid sm:grid-cols-3 gap-3">
+                <div class="p-3 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 shadow-xs">
+                  <div class="flex items-center gap-1.5 text-xs font-bold text-zinc-900 dark:text-white mb-1">
+                    <span>🔐</span> Auth & Security
+                  </div>
+                  <p class="text-[11px] text-zinc-500 dark:text-zinc-400 leading-snug">Firebase Google Sign-In + Email OTP via PHPMailer SMTP & Bcrypt</p>
+                </div>
+                <div class="p-3 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 shadow-xs">
+                  <div class="flex items-center gap-1.5 text-xs font-bold text-zinc-900 dark:text-white mb-1">
+                    <span>💳</span> Payments & Invoicing
+                  </div>
+                  <p class="text-[11px] text-zinc-500 dark:text-zinc-400 leading-snug">Razorpay Gateway checkout + Dompdf automated PDF bill generation</p>
+                </div>
+                <div class="p-3 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 shadow-xs">
+                  <div class="flex items-center gap-1.5 text-xs font-bold text-zinc-900 dark:text-white mb-1">
+                    <span>⚙️</span> Core Controllers
+                  </div>
+                  <p class="text-[11px] text-zinc-500 dark:text-zinc-400 leading-snug">7-Craft labor matcher, builder contractor bookings & hardware supplies e-store</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Connector 2 -->
+            <div class="flex items-center justify-center relative py-1">
+              <div class="h-6 w-px bg-zinc-300 dark:bg-zinc-700"></div>
+              <span class="absolute text-[10px] font-mono bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-300 px-2 py-0.5 rounded-full shadow-xs">MySQLi / PDO Prepared Statements</span>
+            </div>
+
+            <!-- Tier 3: Database Tier -->
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[11px] font-bold tracking-wider uppercase text-zinc-400 dark:text-zinc-500">Tier 3 • Database & Server Layer</span>
+                <span class="text-[10px] bg-zinc-200/70 dark:bg-zinc-800 px-2 py-0.5 rounded text-zinc-600 dark:text-zinc-400 font-medium">Defensive SQL & Protection</span>
+              </div>
+              <div class="p-3 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 shadow-xs">
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px]">
+                  <div class="p-2 rounded-lg bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-100 dark:border-zinc-800">
+                    <p class="font-bold text-zinc-900 dark:text-white">🗄️ `workers`</p>
+                    <p class="text-[10px] text-zinc-500 dark:text-zinc-400">7 categories, profiles & status</p>
+                  </div>
+                  <div class="p-2 rounded-lg bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-100 dark:border-zinc-800">
+                    <p class="font-bold text-zinc-900 dark:text-white">🏗️ `builders`</p>
+                    <p class="text-[10px] text-zinc-500 dark:text-zinc-400">Contractors, areas & ratings</p>
+                  </div>
+                  <div class="p-2 rounded-lg bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-100 dark:border-zinc-800">
+                    <p class="font-bold text-zinc-900 dark:text-white">🛒 `store_items`</p>
+                    <p class="text-[10px] text-zinc-500 dark:text-zinc-400">Hardware inventory & orders</p>
+                  </div>
+                  <div class="p-2 rounded-lg bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-100 dark:border-zinc-800">
+                    <p class="font-bold text-zinc-900 dark:text-white">🛡️ `.htaccess`</p>
+                    <p class="text-[10px] text-zinc-500 dark:text-zinc-400">File protection & clean routing</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
 
