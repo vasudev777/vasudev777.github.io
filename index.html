@@ -563,18 +563,19 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
             <span class="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-3 py-1 rounded-full">MySQL</span>
             <span class="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-3 py-1 rounded-full">Bootstrap</span>
           </div>
-          <h3 class="font-display font-bold text-xl text-zinc-900 dark:text-white mb-2">Zaika — Virtual Restaurant Platform</h3>
-          <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">A complete restaurant management system with online ordering, menu management, table booking, and admin dashboard for restaurant owners.</p>
+          <h3 class="font-display font-bold text-xl text-zinc-900 dark:text-white mb-2">Zaika</h3>
+          <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">A dual-panel restaurant platform unifying admin-reviewed dine-in reservations, takeaway ordering with pickup-OTP verification, and an active surplus food donation pipeline connecting to local NGOs. Powered by PHPMailer SMTP and active session security.</p>
           <div class="flex flex-wrap gap-3">
             <a href="https://zaikaa.free.nf/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-sm font-medium text-white bg-accent px-4 py-2 rounded-full shimmer hover:bg-accent-light transition-colors">
               Live Demo →
             </a>
-            
+            <button @click="zaikaModal = true" class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-full hover:border-accent transition-colors">
+              📖 Case Study
+            </button>
             <!-- Android App Download Button (Outlined Style) -->
             <a href="apks/Zaika.apk" download="Zaika.apk" class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-full hover:border-accent transition-colors">
               🤖 Download App
             </a>
-            
             <a href="https://github.com/vasudev777" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-full hover:border-accent transition-colors">
               GitHub →
             </a>
@@ -1231,6 +1232,273 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
   </div>
 </div>
 
+<!-- ZAIKA CASE STUDY MODAL -->
+<div x-show="zaikaModal" x-cloak
+  @keydown.escape.window="zaikaModal = false"
+  class="fixed inset-0 z-50 overflow-y-auto"
+  aria-labelledby="zaika-modal-title" role="dialog" aria-modal="true">
+
+  <!-- Backdrop blur -->
+  <div x-show="zaikaModal"
+    x-transition:enter="transition ease-out duration-300"
+    x-transition:enter-start="opacity-0"
+    x-transition:enter-end="opacity-100"
+    x-transition:leave="transition ease-in duration-200"
+    x-transition:leave-start="opacity-100"
+    x-transition:leave-end="opacity-0"
+    @click="zaikaModal = false"
+    class="fixed inset-0 bg-zinc-950/70 backdrop-blur-md"></div>
+
+  <!-- Modal Dialog Container -->
+  <div class="min-h-full flex items-center justify-center p-4 sm:p-6 relative z-10">
+    <div x-show="zaikaModal"
+      x-transition:enter="transition ease-out duration-300"
+      x-transition:enter-start="opacity-0 scale-95 translate-y-4"
+      x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+      x-transition:leave="transition ease-in duration-200"
+      x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+      x-transition:leave-end="opacity-0 scale-95 translate-y-4"
+      @click.outside="zaikaModal = false"
+      class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl max-w-3xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden text-zinc-800 dark:text-zinc-200">
+
+      <!-- Modal Header -->
+      <div class="px-6 py-5 border-b border-zinc-100 dark:border-zinc-800 flex items-start justify-between gap-4 bg-zinc-50/50 dark:bg-zinc-900/50 shrink-0">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-xs font-semibold uppercase tracking-wider text-accent bg-red-50 dark:bg-zinc-800 border border-red-200 dark:border-zinc-700 px-2.5 py-0.5 rounded-full">Dual-Panel Restaurant Platform</span>
+            <span class="text-xs text-zinc-400">· Hospitality & Food Redistribution</span>
+          </div>
+          <h2 id="zaika-modal-title" class="font-display font-bold text-2xl text-zinc-900 dark:text-white">Zaika</h2>
+          <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">Lead Architect & Developer: <strong class="font-medium text-zinc-700 dark:text-zinc-300">Vasudev Parmar</strong> · Digital Restaurant & Surplus Food Redistribution Ecosystem</p>
+        </div>
+        <button @click="zaikaModal = false" class="w-9 h-9 flex items-center justify-center rounded-full border border-zinc-200 dark:border-zinc-800 text-zinc-500 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors shrink-0" aria-label="Close modal">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Modal Body (Scrollable) -->
+      <div class="p-6 overflow-y-auto space-y-8 text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+
+        <!-- Tech Stack Badges -->
+        <div>
+          <p class="text-xs font-semibold text-zinc-400 uppercase tracking-widest mb-2">Verified Production Stack</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700">PHP (Core SSR)</span>
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700">MySQL Relational Schema</span>
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700">PHPMailer (SMTP Alerts & OTP)</span>
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700">Firebase Google Auth</span>
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700">Active Session Security</span>
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700">Bcrypt Hashing</span>
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-red-50 dark:bg-zinc-800 text-red-600 dark:text-red-400 border border-red-200 dark:border-zinc-700">Android APK Distribution</span>
+          </div>
+        </div>
+
+        <!-- 1. Executive Summary -->
+        <div>
+          <h3 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-2">1. Executive Summary</h3>
+          <p class="text-zinc-600 dark:text-zinc-400">
+            <strong>Zaika</strong> is a dual-panel (Customer/Admin) digital restaurant and hospitality platform unifying <strong>admin-reviewed dine-in reservations</strong>, a <strong>multi-cuisine ordering and takeaway system with pickup-OTP verification</strong>, and an active <strong>surplus food donation pipeline</strong> connecting the commercial kitchen directly to verified local NGOs for community food redistribution.
+          </p>
+        </div>
+
+        <!-- 2. Problem Statement -->
+        <div>
+          <h3 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-2">2. Problem Statement & Friction Points</h3>
+          <div class="grid sm:grid-cols-3 gap-4 mt-3">
+            <div class="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-100 dark:border-zinc-800">
+              <p class="font-bold text-zinc-900 dark:text-white mb-1">🚫 High Table No-Show Rates</p>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400">Unverified reservations lead to frequent ghost bookings and vacant prime-time seating, causing immediate revenue loss during peak dining hours.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-100 dark:border-zinc-800">
+              <p class="font-bold text-zinc-900 dark:text-white mb-1">📦 Multi-Channel Friction</p>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400">Disconnected workflows for dine-in tables, telephone takeaway orders, and order history create preparation delays and customer confusion.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-100 dark:border-zinc-800">
+              <p class="font-bold text-zinc-900 dark:text-white mb-1">🍲 Commercial Kitchen Food Waste</p>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400">Restaurants routinely generate surplus edible food with no structured, traceable channel to safely log and redistribute meals to certified charitable organizations.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. The Dual-Panel Model -->
+        <div>
+          <h3 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-2">3. The Dual-Panel Model</h3>
+          <div class="grid sm:grid-cols-2 gap-3">
+            <div class="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-800">
+              <p class="font-bold text-zinc-900 dark:text-white text-xs mb-1">👤 Customer Panel</p>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400">Submit dine-in table requests, order multi-cuisine takeaway meals (secured via pickup OTP), review unified dining history via a dual-toggle view, and submit feedback.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-800">
+              <p class="font-bold text-zinc-900 dark:text-white text-xs mb-1">🛡️ Admin Management Panel</p>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400">Audit dine-in reservations (accept/reject with explicit reasons), manage dynamic menu items, log daily surplus food donations to NGOs, and enforce immediate live session termination.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. System Architecture Flow -->
+        <div>
+          <h3 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-3">4. System Architecture & Workflow</h3>
+          <div class="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/70 dark:bg-zinc-950/70 p-4 sm:p-5 space-y-4">
+
+            <!-- Tier 1: Client Access -->
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[11px] font-bold tracking-wider uppercase text-zinc-400 dark:text-zinc-500">Tier 1 • Client Layer</span>
+                <span class="text-[10px] bg-zinc-200/70 dark:bg-zinc-800 px-2 py-0.5 rounded text-zinc-600 dark:text-zinc-400 font-medium">Responsive Delivery</span>
+              </div>
+              <div class="grid sm:grid-cols-2 gap-3">
+                <div class="p-3 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 flex items-center gap-3 shadow-xs">
+                  <div class="w-10 h-10 rounded-lg bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800 flex items-center justify-center text-red-600 dark:text-red-400 text-xl shrink-0">📱</div>
+                  <div>
+                    <p class="font-bold text-xs text-zinc-900 dark:text-white">Android Native Wrapper (APK)</p>
+                    <p class="text-[11px] text-zinc-500 dark:text-zinc-400">Dedicated mobile app for diners & takeaway pickup</p>
+                  </div>
+                </div>
+                <div class="p-3 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 flex items-center gap-3 shadow-xs">
+                  <div class="w-10 h-10 rounded-lg bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800 flex items-center justify-center text-blue-600 dark:text-blue-400 text-xl shrink-0">💻</div>
+                  <div>
+                    <p class="font-bold text-xs text-zinc-900 dark:text-white">Responsive Web Platform</p>
+                    <p class="text-[11px] text-zinc-500 dark:text-zinc-400">Desktop customer portal & admin management suite</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Connector 1 -->
+            <div class="flex items-center justify-center relative py-1">
+              <div class="h-6 w-px bg-zinc-300 dark:bg-zinc-700"></div>
+              <span class="absolute text-[10px] font-mono bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-300 px-2 py-0.5 rounded-full shadow-xs">HTTPS Protocol</span>
+            </div>
+
+            <!-- Tier 2: Application Tier -->
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[11px] font-bold tracking-wider uppercase text-zinc-400 dark:text-zinc-500">Tier 2 • Application Tier (Core PHP)</span>
+                <span class="text-[10px] bg-accent/10 border border-accent/20 px-2 py-0.5 rounded text-accent font-medium">Workflow Controllers</span>
+              </div>
+              <div class="grid sm:grid-cols-3 gap-3">
+                <div class="p-3 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 shadow-xs">
+                  <div class="flex items-center gap-1.5 text-xs font-bold text-zinc-900 dark:text-white mb-1">
+                    <span>🍽️</span> Table Reservation
+                  </div>
+                  <p class="text-[11px] text-zinc-500 dark:text-zinc-400 leading-snug">Admin audit state machine with automated rejection alerts & reason dispatch</p>
+                </div>
+                <div class="p-3 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 shadow-xs">
+                  <div class="flex items-center gap-1.5 text-xs font-bold text-zinc-900 dark:text-white mb-1">
+                    <span>🛍️</span> Takeaway & Pickup OTP
+                  </div>
+                  <p class="text-[11px] text-zinc-500 dark:text-zinc-400 leading-snug">Multi-cuisine AJAX cart management with secure pickup verification codes</p>
+                </div>
+                <div class="p-3 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 shadow-xs">
+                  <div class="flex items-center gap-1.5 text-xs font-bold text-zinc-900 dark:text-white mb-1">
+                    <span>🍲</span> Surplus NGO Portal
+                  </div>
+                  <p class="text-[11px] text-zinc-500 dark:text-zinc-400 leading-snug">Kitchen surplus logging in KG/portions with verified NGO distribution audit logs</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Connector 2 -->
+            <div class="flex items-center justify-center relative py-1">
+              <div class="h-6 w-px bg-zinc-300 dark:bg-zinc-700"></div>
+              <span class="absolute text-[10px] font-mono bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-300 px-2 py-0.5 rounded-full shadow-xs">MySQLi / Prepared Statements</span>
+            </div>
+
+            <!-- Tier 3: Database Tier -->
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[11px] font-bold tracking-wider uppercase text-zinc-400 dark:text-zinc-500">Tier 3 • Database & Security Layer</span>
+                <span class="text-[10px] bg-zinc-200/70 dark:bg-zinc-800 px-2 py-0.5 rounded text-zinc-600 dark:text-zinc-400 font-medium">Relational Security</span>
+              </div>
+              <div class="p-3 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 shadow-xs">
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px]">
+                  <div class="p-2 rounded-lg bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-100 dark:border-zinc-800">
+                    <p class="font-bold text-zinc-900 dark:text-white">🗄️ `dine_in`</p>
+                    <p class="text-[10px] text-zinc-500 dark:text-zinc-400">Reservations & status logs</p>
+                  </div>
+                  <div class="p-2 rounded-lg bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-100 dark:border-zinc-800">
+                    <p class="font-bold text-zinc-900 dark:text-white">📋 `menu` & `cart`</p>
+                    <p class="text-[10px] text-zinc-500 dark:text-zinc-400">Dishes, pricing & orders</p>
+                  </div>
+                  <div class="p-2 rounded-lg bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-100 dark:border-zinc-800">
+                    <p class="font-bold text-zinc-900 dark:text-white">🍲 `donations`</p>
+                    <p class="text-[10px] text-zinc-500 dark:text-zinc-400">Surplus logs & NGO registry</p>
+                  </div>
+                  <div class="p-2 rounded-lg bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-100 dark:border-zinc-800">
+                    <p class="font-bold text-zinc-900 dark:text-white">🛡️ Active Sessions</p>
+                    <p class="text-[10px] text-zinc-500 dark:text-zinc-400">Instant block termination</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- 5. Key Engineering Implementations -->
+        <div>
+          <h3 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-3">5. Key Engineering Implementations</h3>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-800">
+              <p class="font-bold text-zinc-900 dark:text-white text-sm mb-1">Admin-Reviewed Table Reservation Workflow</p>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400">Customers submit a dine-in booking request that does not auto-confirm. The admin audits the floor plan and either accepts or rejects the request. On rejection, an automated PHPMailer alert is dispatched to the guest detailing the stated reason, eliminating ambiguity around denied bookings.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-800">
+              <p class="font-bold text-zinc-900 dark:text-white text-sm mb-1">Takeaway Ordering with Pickup OTP</p>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400">Structured multi-cuisine catalog with AJAX-driven cart modifications. Upon order placement, a unique pickup OTP is generated; the customer presents this code at counter collection, preventing order handoff mix-ups and unauthorized pickups.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-800">
+              <p class="font-bold text-zinc-900 dark:text-white text-sm mb-1">Unified Customer History (Dual-Toggle View)</p>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400">A consolidated user portal featuring a dual-toggle view that lets guests seamlessly switch between their dine-in reservation logs and takeaway orders in one unified interface rather than fragmented separate history screens.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-800">
+              <p class="font-bold text-zinc-900 dark:text-white text-sm mb-1">Immediate Live Session Invalidation on Account Block</p>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400">Engineered an active session-validity lookup checked on each request header. If an administrator blocks an account, their live session is instantly terminated, eliminating the vulnerability window where a blocked user could continue performing actions on a stale token.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-800">
+              <p class="font-bold text-zinc-900 dark:text-white text-sm mb-1">Surplus Food Redistribution & NGO Audit Portal</p>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400">Enables kitchen staff to log daily surplus prepared food with exact quantities and metrics (KG / Portions). Maintains an active NGO registry with transparent donation histories, creating an auditable track record of food diverted from landfills.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-800">
+              <p class="font-bold text-zinc-900 dark:text-white text-sm mb-1">Defensive Security & Authentication Layer</p>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400">Triple auth supported (Email/Password, Email OTP, Firebase Google Sign-In). All database queries run through MySQL prepared statements, passwords hashed with Bcrypt, and sensitive directories shielded via server-level <code>.htaccess</code> rules.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. In-Progress Roadmap -->
+        <div class="p-5 rounded-2xl bg-amber-50/70 dark:bg-zinc-800/60 border border-amber-200/80 dark:border-zinc-700">
+          <p class="text-xs font-semibold text-amber-600 dark:text-amber-400 uppercase tracking-wider mb-1">Engineering Roadmap • In Progress</p>
+          <p class="font-bold text-zinc-900 dark:text-white text-base">ZaikaAI Virtual Hospitality Assistant</p>
+          <p class="text-xs text-zinc-600 dark:text-zinc-400 mt-1">
+            Currently in active development: A contextual floating hospitality assistant designed to guide diners through personalized dietary recommendations (healthy meals, regional specials), handle common FAQ queries, and streamline table reservation flows. Honestly documented as an upcoming roadmap initiative.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="px-6 py-4 border-t border-zinc-100 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50 flex flex-wrap items-center justify-between gap-3 shrink-0">
+        <div class="flex flex-wrap gap-2">
+          <a href="https://zaikaa.free.nf/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-medium text-white bg-accent px-4 py-2 rounded-full shimmer hover:bg-accent-light transition-colors">
+            Open Live Demo →
+          </a>
+          <a href="apks/Zaika.apk" download="Zaika.apk" class="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-full hover:border-accent transition-colors">
+            🤖 Download App
+          </a>
+          <a href="https://github.com/vasudev777" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-full hover:border-accent transition-colors">
+            GitHub Repo
+          </a>
+        </div>
+        <button @click="zaikaModal = false" class="text-xs font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white px-3 py-2 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+          Close (Esc)
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 
   <!-- CERTIFICATIONS -->
 <section id="certifications" class="py-24">
@@ -1557,6 +1825,7 @@ function app() {
     s: 'hero',
     shramModal: false,
     exploreModal: false,
+    zaikaModal: false,
 
     init() {
       this.dark = localStorage.getItem('theme') === 'dark' ||
@@ -1564,6 +1833,7 @@ function app() {
       this.$watch('dark', v => localStorage.setItem('theme', v ? 'dark' : 'light'));
       this.$watch('shramModal', v => document.body.style.overflow = v ? 'hidden' : '');
       this.$watch('exploreModal', v => document.body.style.overflow = v ? 'hidden' : '');
+      this.$watch('zaikaModal', v => document.body.style.overflow = v ? 'hidden' : '');
 
       window.addEventListener('scroll', () => {
         this.sc = window.scrollY > 20;
