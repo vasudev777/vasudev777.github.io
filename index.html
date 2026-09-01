@@ -832,6 +832,23 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 <footer class="border-t border-zinc-100 dark:border-zinc-900">
   <div class="max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
     <p class="text-sm text-zinc-400">© <span id="yr"></span> Vasudev Parmar. All rights reserved.</p>
+
+    <!-- LIVE VISITOR STATS -->
+    <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-xs font-medium text-zinc-600 dark:text-zinc-400 shadow-sm">
+      <span class="flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+        <span id="unique-visitors-count" class="font-semibold text-zinc-900 dark:text-white">0</span> views
+      </span>
+      <span class="w-1 h-1 rounded-full bg-zinc-300 dark:bg-zinc-700"></span>
+      <span class="flex items-center gap-1.5">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+        </span>
+        <span id="live-visitors-count" class="font-semibold text-emerald-600 dark:text-emerald-400">1</span> online
+      </span>
+    </div>
+
     <p class="text-xs text-zinc-500">Built with <span class="text-accent">♥</span> using Tailwind CSS & Alpine.js</p>
   </div>
   <script>
@@ -984,5 +1001,192 @@ function app() {
 }
 </script>
 
+<!-- Firebase & Visitor Tracking -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+  import { 
+    getDatabase, ref, onValue, set, push, onDisconnect, 
+    serverTimestamp, runTransaction, get 
+  } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCq9BbeMspvOWg1c07jzmK9cXgnYKXVjfo",
+    authDomain: "vasudev-portfolio-48a78.firebaseapp.com",
+    databaseURL: "https://vasudev-portfolio-48a78-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "vasudev-portfolio-48a78",
+    storageBucket: "vasudev-portfolio-48a78.firebasestorage.app",
+    messagingSenderId: "467678239776",
+    appId: "1:467678239776:web:2a5513dbcfbe73c6f5b045",
+    measurementId: "G-42WVGSBKH9"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  const TELEGRAM_BOT_TOKEN = "8996825013:AAGGvI2yJxtwzYNL1DWaPKkKsJ24KTqih5s";
+  const TELEGRAM_CHAT_ID = "914408277";
+
+  // 1. Live Users Presence (Accurate Real-time WebSockets)
+  try {
+    const connectedRef = ref(db, ".info/connected");
+    const presenceListRef = ref(db, "presence");
+
+    onValue(connectedRef, (snap) => {
+      if (snap.val() === true) {
+        const myPresenceRef = push(presenceListRef);
+        onDisconnect(myPresenceRef).remove();
+        set(myPresenceRef, { online_at: serverTimestamp() });
+      }
+    });
+
+    onValue(presenceListRef, (snap) => {
+      const count = snap.exists() ? Object.keys(snap.val()).length : 1;
+      const liveEl = document.getElementById("live-visitors-count");
+      if (liveEl) liveEl.textContent = count;
+    });
+  } catch (err) {
+    console.warn("Presence tracking error:", err);
+  }
+
+  // 2. Unique Visitors & Private Alert
+  async function initTracking() {
+    const uniqueCountRef = ref(db, "stats/unique_visitors");
+
+    try {
+      onValue(uniqueCountRef, (snap) => {
+        const val = snap.val() || 0;
+        const viewEl = document.getElementById("unique-visitors-count");
+        if (viewEl) viewEl.textContent = val.toLocaleString();
+      });
+    } catch (err) {
+      console.warn("Stats counter error:", err);
+    }
+
+    const sessionKey = "vp_visited_session";
+    const alreadyTrackedThisSession = sessionStorage.getItem(sessionKey);
+
+    let ipData = { ip: "unknown", city: "Unknown", region: "Unknown", country: "India", org: "Unknown" };
+    try {
+      const res = await fetch("https://ipwho.is/");
+      const data = await res.json();
+      if (data && data.success !== false) {
+        ipData = {
+          ip: data.ip || "unknown",
+          city: data.city || "Unknown",
+          region: data.region || "Unknown",
+          country: data.country || "India",
+          org: (data.connection && data.connection.isp) || data.org || "Unknown"
+        };
+      }
+    } catch (e) {
+      try {
+        const fallbackRes = await fetch("https://ipapi.co/json/");
+        if (fallbackRes.ok) {
+          const fData = await fallbackRes.json();
+          ipData = {
+            ip: fData.ip || "unknown",
+            city: fData.city || "Unknown",
+            region: fData.region || "Unknown",
+            country: fData.country_name || "India",
+            org: fData.org || "Unknown"
+          };
+        }
+      } catch (err) {}
+    }
+
+    const rawIp = ipData.ip || "unknown";
+    const sanitizedIp = rawIp.replace(/[.:#$\[\]]/g, "_");
+
+    if (rawIp !== "unknown") {
+      try {
+        const visitorRef = ref(db, `visitors/${sanitizedIp}`);
+        const visitorSnap = await get(visitorRef);
+        const isNewUnique = !visitorSnap.exists();
+
+        if (isNewUnique) {
+          await set(visitorRef, {
+            first_seen: serverTimestamp(),
+            city: ipData.city,
+            region: ipData.region,
+            country: ipData.country,
+            org: ipData.org,
+            device: getDeviceInfo()
+          });
+
+          runTransaction(uniqueCountRef, (current) => (current || 0) + 1);
+          sendTelegramAlert(ipData, true);
+        } else {
+          if (!alreadyTrackedThisSession) {
+            sendTelegramAlert(ipData, false);
+          }
+        }
+      } catch (dbErr) {
+        console.warn("Database record error:", dbErr);
+        if (!alreadyTrackedThisSession) {
+          sendTelegramAlert(ipData, false);
+        }
+      }
+    } else {
+      if (!alreadyTrackedThisSession) {
+        sendTelegramAlert(ipData, false);
+      }
+    }
+
+    sessionStorage.setItem(sessionKey, "true");
+  }
+
+  function getDeviceInfo() {
+    const ua = navigator.userAgent;
+    let os = "Desktop";
+    if (/Android/i.test(ua)) os = "Android";
+    else if (/iPhone|iPad|iPod/i.test(ua)) os = "iOS";
+    else if (/Windows/i.test(ua)) os = "Windows";
+    else if (/Mac/i.test(ua)) os = "macOS";
+    else if (/Linux/i.test(ua)) os = "Linux";
+
+    let browser = "Browser";
+    if (/Chrome/i.test(ua) && !/Edg/i.test(ua)) browser = "Chrome";
+    else if (/Safari/i.test(ua) && !/Chrome/i.test(ua)) browser = "Safari";
+    else if (/Firefox/i.test(ua)) browser = "Firefox";
+    else if (/Edg/i.test(ua)) browser = "Edge";
+
+    return `${os} · ${browser}`;
+  }
+
+  function sendTelegramAlert(data, isNew) {
+    if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+      return;
+    }
+
+    const title = isNew ? "🚀 <b>NEW UNIQUE VISITOR!</b>" : "🔄 <b>Returning Visitor</b>";
+    const device = getDeviceInfo();
+    const now = new Date();
+    const timeStr = now.toLocaleTimeString("en-IN", { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit" });
+
+    const message = `${title}\n\n` +
+      `📍 <b>Location:</b> ${data.city}, ${data.region}, ${data.country}\n` +
+      `🌐 <b>IP / Network:</b> <code>${data.ip}</code> (${data.org})\n` +
+      `📱 <b>Device:</b> ${device}\n` +
+      `🕒 <b>Time:</b> ${timeStr} IST\n` +
+      `🔗 <b>Page:</b> ${window.location.pathname}`;
+
+    fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: TELEGRAM_CHAT_ID,
+        text: message,
+        parse_mode: "HTML"
+      })
+    }).catch(() => {});
+  }
+
+  // Start tracking after load
+  if (document.readyState === "complete") {
+    initTracking();
+  } else {
+    window.addEventListener("load", initTracking);
+  }
+</script>
 </body>
 </html>
