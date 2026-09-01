@@ -530,9 +530,12 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
             <span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700 px-3 py-1 rounded-full">Research Published</span>
           </div>
           <h3 class="font-display font-bold text-xl text-zinc-900 dark:text-white mb-2">Shram — Labour Hiring Marketplace</h3>
-          <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">A platform connecting daily-wage labourers with employers. Features job posting, worker profiles, real-time matching, and location-based search. Backed by 2 published research papers in IJARESM.</p>
+          <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">An end-to-end hiring & procurement platform connecting daily-wage artisans and builders with homeowners. Features 7 craft categories, virtual construction supplies store, Razorpay payments, and automated Dompdf invoicing. Backed by published research in IJARESM.</p>
           <div class="flex flex-wrap gap-3">
-            <a href="https://shram.free.nf/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-sm font-medium text-white bg-accent px-4 py-2 rounded-full shimmer hover:bg-accent-light transition-colors">
+            <button @click="shramModal = true" class="inline-flex items-center gap-1.5 text-sm font-medium text-white bg-accent px-4 py-2 rounded-full shimmer hover:bg-accent-light transition-all shadow-sm">
+              📖 Case Study
+            </button>
+            <a href="https://shram.free.nf/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-full hover:border-accent transition-colors">
               Live Demo →
             </a>
             <!-- Android App Download Button (Outlined Style) -->
@@ -644,6 +647,203 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
     </div>
   </div>
 </section>
+
+<!-- SHRAM CASE STUDY MODAL -->
+<div x-show="shramModal" x-cloak
+  @keydown.escape.window="shramModal = false"
+  class="fixed inset-0 z-50 overflow-y-auto"
+  aria-labelledby="shram-modal-title" role="dialog" aria-modal="true">
+
+  <!-- Backdrop blur -->
+  <div x-show="shramModal"
+    x-transition:enter="transition ease-out duration-300"
+    x-transition:enter-start="opacity-0"
+    x-transition:enter-end="opacity-100"
+    x-transition:leave="transition ease-in duration-200"
+    x-transition:leave-start="opacity-100"
+    x-transition:leave-end="opacity-0"
+    @click="shramModal = false"
+    class="fixed inset-0 bg-zinc-950/70 backdrop-blur-md"></div>
+
+  <!-- Modal Dialog Container -->
+  <div class="min-h-full flex items-center justify-center p-4 sm:p-6 relative z-10">
+    <div x-show="shramModal"
+      x-transition:enter="transition ease-out duration-300"
+      x-transition:enter-start="opacity-0 scale-95 translate-y-4"
+      x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+      x-transition:leave="transition ease-in duration-200"
+      x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+      x-transition:leave-end="opacity-0 scale-95 translate-y-4"
+      @click.outside="shramModal = false"
+      class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl max-w-3xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden text-zinc-800 dark:text-zinc-200">
+
+      <!-- Modal Header -->
+      <div class="px-6 py-5 border-b border-zinc-100 dark:border-zinc-800 flex items-start justify-between gap-4 bg-zinc-50/50 dark:bg-zinc-900/50 shrink-0">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-xs font-semibold uppercase tracking-wider text-accent bg-orange-50 dark:bg-zinc-800 border border-orange-200 dark:border-zinc-700 px-2.5 py-0.5 rounded-full">Research-Backed Architecture</span>
+            <span class="text-xs text-zinc-400">· IJARESM Published</span>
+          </div>
+          <h2 id="shram-modal-title" class="font-display font-bold text-2xl text-zinc-900 dark:text-white">Shram — Decentralized Construction & Labour Platform</h2>
+          <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">Lead Developer & Researcher: <strong class="font-medium text-zinc-700 dark:text-zinc-300">Vasudev Parmar</strong> · Paper: <em>Shram: A Practical Approach (ISSN: 2455-6211)</em></p>
+        </div>
+        <button @click="shramModal = false" class="w-9 h-9 flex items-center justify-center rounded-full border border-zinc-200 dark:border-zinc-800 text-zinc-500 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors shrink-0" aria-label="Close modal">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Modal Body (Scrollable) -->
+      <div class="p-6 overflow-y-auto space-y-8 text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+
+        <!-- Tech Stack Badges -->
+        <div>
+          <p class="text-xs font-semibold text-zinc-400 uppercase tracking-widest mb-2">Verified Production Stack</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700">PHP (Core SSR)</span>
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700">MySQL Prepared Statements</span>
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700">Razorpay Payment Gateway</span>
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700">Dompdf Invoicing</span>
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700">PHPMailer (SMTP)</span>
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700">Firebase Google Auth</span>
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700">Bcrypt Hashing</span>
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700">.htaccess Server Rules</span>
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700">Android APK Wrapper</span>
+          </div>
+        </div>
+
+        <!-- 1. Executive Summary -->
+        <div>
+          <h3 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-2">1. Executive Summary</h3>
+          <p class="text-zinc-600 dark:text-zinc-400">
+            <strong>Shram</strong> is a full-stack digital hiring and procurement platform designed to address critical inefficiencies in India's unorganized construction sector. Backed by my research paper published in the <em>International Journal of All Research Education & Scientific Methods (IJARESM)</em>, the platform eliminates intermediary brokers by enabling direct hiring for <strong>7 specialized labor crafts</strong>, contractor allocation, and an <strong>integrated construction supplies e-store</strong> with secure digital payment processing and automated invoice generation.
+          </p>
+        </div>
+
+        <!-- 2. Problem Statement -->
+        <div>
+          <h3 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-2">2. Problem Statement & Ground Reality</h3>
+          <div class="grid sm:grid-cols-2 gap-4 mt-3">
+            <div class="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-100 dark:border-zinc-800">
+              <p class="font-bold text-zinc-900 dark:text-white mb-1">🏗️ 40M Unorganized Workforce</p>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400">According to Ministry of Labour data cited in the research, over 40 million individuals are employed in construction with high underemployment and irregular work access.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-100 dark:border-zinc-800">
+              <p class="font-bold text-zinc-900 dark:text-white mb-1">💸 20%–30% Brokerage Cuts</p>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400">Informal artisans gather at morning labor hubs (naka / chowk) and rely on middlemen (thekedaars) who extract up to 30% of their daily earnings.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-100 dark:border-zinc-800">
+              <p class="font-bold text-zinc-900 dark:text-white mb-1">🔍 Hiring Disconnect</p>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400">Homeowners and builders face communication gaps and delays when sourcing dependable workers for household tasks or project contracts.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-100 dark:border-zinc-800">
+              <p class="font-bold text-zinc-900 dark:text-white mb-1">🛒 Procurement Fragmentation</p>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400">Sourcing plumbing, electrical, and hardware supplies requires separate offline trips, causing avoidable project downtime.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. System Architecture Flow -->
+        <div>
+          <h3 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-2">3. System Architecture & Workflow</h3>
+          <div class="bg-zinc-900 dark:bg-zinc-950 p-4 sm:p-5 rounded-2xl border border-zinc-800 font-mono text-xs text-zinc-300 overflow-x-auto leading-relaxed">
+<pre class="text-zinc-300">┌─────────────────────────────────────────────────────────────┐
+│                    Client Access Points                     │
+│            [ 📱 Android APK ]    [ 💻 Responsive Web ]      │
+└──────────────────────────────┬──────────────────────────────┘
+                               │ HTTPS
+                               ▼
+┌─────────────────────────────────────────────────────────────┐
+│                Application Tier (Core PHP)                  │
+│  ├── Auth: Email OTP via PHPMailer (SMTP) + Firebase Google │
+│  ├── Security: Bcrypt Hashing + .htaccess Protection        │
+│  ├── Payments: Razorpay Payment Gateway Integration         │
+│  ├── Invoicing: Dompdf Engine (Dynamic Receipt Generation)  │
+│  └── Store Controller: Construction Materials Catalog & Cart│
+└──────────────────────────────┬──────────────────────────────┘
+                               │ MySQLi / PDO Prepared Statements
+                               ▼
+┌─────────────────────────────────────────────────────────────┐
+│                       Database Tier                         │
+│                          (MySQL)                            │
+│  ├── `workers` (Profiles, 7 Craft Categories, Status)       │
+│  ├── `builders` & `hirings` (Booking records & details)     │
+│  ├── `store_products` & `orders` (Hardware inventory)       │
+│  └── `users` & `auth_logs`                                  │
+└─────────────────────────────────────────────────────────────┘</pre>
+          </div>
+        </div>
+
+        <!-- 4. Verified Engineering Implementation -->
+        <div>
+          <h3 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-3">4. Technical Implementation & Security</h3>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-800">
+              <p class="font-bold text-zinc-900 dark:text-white text-sm mb-1">Dual Authentication & Credential Security</p>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400">Incorporated <strong>Firebase Google Sign-In</strong> for frictionless client onboarding alongside <strong>Email OTP verification</strong> powered by <strong>PHPMailer with authenticated SMTP</strong>. Passwords stored with one-way <strong>Bcrypt</strong> hashing.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-800">
+              <p class="font-bold text-zinc-900 dark:text-white text-sm mb-1">Defensive Engineering & Defensive SQL</p>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400">Zero raw query concatenation; all database operations strictly leverage <strong>MySQL prepared statements</strong> to prevent SQL injection. Server-level protection configured via <strong><code>.htaccess</code></strong> rules (disabling direct directory traversal and protecting sensitive files).</p>
+            </div>
+            <div class="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-800">
+              <p class="font-bold text-zinc-900 dark:text-white text-sm mb-1">Payments & Automated Invoicing Pipeline</p>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400">Integrated <strong>Razorpay Payment Gateway</strong> for advance bookings and material checkout. Paired with <strong>Dompdf</strong> to dynamically render and download itemized purchase bills, tax receipts, and work order slips as standardized PDFs.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. 7 Artisan Categories -->
+        <div>
+          <h3 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-2">5. The 7 Artisan Craft Classifications</h3>
+          <p class="text-xs text-zinc-500 dark:text-zinc-400 mb-3">Organized into distinct trade categories with high-contrast iconographic visual elements to ensure seamless navigation across varying literacy levels:</p>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs font-medium">
+            <div class="p-2.5 rounded-lg bg-zinc-100 dark:bg-zinc-800/70 border border-zinc-200 dark:border-zinc-700">🧱 Mason</div>
+            <div class="p-2.5 rounded-lg bg-zinc-100 dark:bg-zinc-800/70 border border-zinc-200 dark:border-zinc-700">🪚 Carpenter</div>
+            <div class="p-2.5 rounded-lg bg-zinc-100 dark:bg-zinc-800/70 border border-zinc-200 dark:border-zinc-700">⚡ Electrician</div>
+            <div class="p-2.5 rounded-lg bg-zinc-100 dark:bg-zinc-800/70 border border-zinc-200 dark:border-zinc-700">🔧 Plumber</div>
+            <div class="p-2.5 rounded-lg bg-zinc-100 dark:bg-zinc-800/70 border border-zinc-200 dark:border-zinc-700">🎨 Painter</div>
+            <div class="p-2.5 rounded-lg bg-zinc-100 dark:bg-zinc-800/70 border border-zinc-200 dark:border-zinc-700">🔥 Welder</div>
+            <div class="p-2.5 rounded-lg bg-zinc-100 dark:bg-zinc-800/70 border border-zinc-200 dark:border-zinc-700 sm:col-span-2">👷 General Helper</div>
+          </div>
+        </div>
+
+        <!-- 6. Research Publication -->
+        <div class="p-5 rounded-2xl bg-orange-50/70 dark:bg-zinc-800/60 border border-orange-200/80 dark:border-zinc-700">
+          <p class="text-xs font-semibold text-accent uppercase tracking-wider mb-1">Academic Research Validation</p>
+          <p class="font-bold text-zinc-900 dark:text-white text-base">Paper: "Shram: A Practical Approach"</p>
+          <p class="text-xs text-zinc-600 dark:text-zinc-400 mt-1">
+            Published in the <em>International Journal of All Research Education & Scientific Methods (IJARESM), ISSN: 2455-6211</em>. Demonstrates that digital disintermediation increases net worker daily wage retention by <strong>20% to 30%</strong> by eliminating broker commissions.
+          </p>
+          <div class="mt-3">
+            <a href="https://www.ijaresm.com/shram-practical-approach" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-medium text-accent hover:underline">
+              View Publication on IJARESM Journal ↗
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="px-6 py-4 border-t border-zinc-100 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50 flex flex-wrap items-center justify-between gap-3 shrink-0">
+        <div class="flex flex-wrap gap-2">
+          <a href="https://shram.free.nf/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-medium text-white bg-accent px-4 py-2 rounded-full shimmer hover:bg-accent-light transition-colors">
+            Open Live Demo →
+          </a>
+          <a href="apks/Shram.apk" download="Shram.apk" class="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-full hover:border-accent transition-colors">
+            🤖 Download App
+          </a>
+          <a href="https://github.com/vasudev777" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-full hover:border-accent transition-colors">
+            GitHub Repo
+          </a>
+        </div>
+        <button @click="shramModal = false" class="text-xs font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white px-3 py-2 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+          Close (Esc)
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 
   <!-- CERTIFICATIONS -->
@@ -969,11 +1169,13 @@ function app() {
     mm: false,
     sc: false,
     s: 'hero',
+    shramModal: false,
 
     init() {
       this.dark = localStorage.getItem('theme') === 'dark' ||
         (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
       this.$watch('dark', v => localStorage.setItem('theme', v ? 'dark' : 'light'));
+      this.$watch('shramModal', v => document.body.style.overflow = v ? 'hidden' : '');
 
       window.addEventListener('scroll', () => {
         this.sc = window.scrollY > 20;
