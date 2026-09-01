@@ -596,18 +596,19 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
             <span class="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-3 py-1 rounded-full">MySQL</span>
             <span class="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-3 py-1 rounded-full">Bootstrap</span>
           </div>
-          <h3 class="font-display font-bold text-xl text-zinc-900 dark:text-white mb-2">Explore India — Travel Platform</h3>
-          <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">A travel and tourism platform showcasing destinations across India with itinerary planning, hotel listings, and tour package management.</p>
+          <h3 class="font-display font-bold text-xl text-zinc-900 dark:text-white mb-2">Explore India</h3>
+          <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">A unified travel platform featuring tri-modal transport booking with interactive 2D flight seat selection, Haversine-based inter-city cabs, dual-track itinerary planning, and a vetted local guide marketplace. Powered by Razorpay and automated SMTP invoicing.</p>
           <div class="flex flex-wrap gap-3">
             <a href="https://exploreindia.free.nf/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-sm font-medium text-white bg-accent px-4 py-2 rounded-full shimmer hover:bg-accent-light transition-colors">
               Live Demo →
             </a>
-            
+            <button @click="exploreModal = true" class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-full hover:border-accent transition-colors">
+              📖 Case Study
+            </button>
             <!-- Android App Download Button (Outlined Style) -->
             <a href="apks/Explore-India.apk" download="Explore-India.apk" class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-full hover:border-accent transition-colors">
               🤖 Download App
             </a>
-            
             <a href="https://github.com/vasudev777" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-full hover:border-accent transition-colors">
               GitHub →
             </a>
@@ -948,6 +949,288 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
   </div>
 </div>
 
+<!-- EXPLORE INDIA CASE STUDY MODAL -->
+<div x-show="exploreModal" x-cloak
+  @keydown.escape.window="exploreModal = false"
+  class="fixed inset-0 z-50 overflow-y-auto"
+  aria-labelledby="explore-modal-title" role="dialog" aria-modal="true">
+
+  <!-- Backdrop blur -->
+  <div x-show="exploreModal"
+    x-transition:enter="transition ease-out duration-300"
+    x-transition:enter-start="opacity-0"
+    x-transition:enter-end="opacity-100"
+    x-transition:leave="transition ease-in duration-200"
+    x-transition:leave-start="opacity-100"
+    x-transition:leave-end="opacity-0"
+    @click="exploreModal = false"
+    class="fixed inset-0 bg-zinc-950/70 backdrop-blur-md"></div>
+
+  <!-- Modal Dialog Container -->
+  <div class="min-h-full flex items-center justify-center p-4 sm:p-6 relative z-10">
+    <div x-show="exploreModal"
+      x-transition:enter="transition ease-out duration-300"
+      x-transition:enter-start="opacity-0 scale-95 translate-y-4"
+      x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+      x-transition:leave="transition ease-in duration-200"
+      x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+      x-transition:leave-end="opacity-0 scale-95 translate-y-4"
+      @click.outside="exploreModal = false"
+      class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl max-w-3xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden text-zinc-800 dark:text-zinc-200">
+
+      <!-- Modal Header -->
+      <div class="px-6 py-5 border-b border-zinc-100 dark:border-zinc-800 flex items-start justify-between gap-4 bg-zinc-50/50 dark:bg-zinc-900/50 shrink-0">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-xs font-semibold uppercase tracking-wider text-accent bg-green-50 dark:bg-zinc-800 border border-green-200 dark:border-zinc-700 px-2.5 py-0.5 rounded-full">Tri-Panel Tourism Platform</span>
+            <span class="text-xs text-zinc-400">· Full-Stack Travel Ecosystem</span>
+          </div>
+          <h2 id="explore-modal-title" class="font-display font-bold text-2xl text-zinc-900 dark:text-white">Explore India</h2>
+          <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">Lead Architect & Developer: <strong class="font-medium text-zinc-700 dark:text-zinc-300">Vasudev Parmar</strong> · Multi-Modal Travel & Itinerary Platform</p>
+        </div>
+        <button @click="exploreModal = false" class="w-9 h-9 flex items-center justify-center rounded-full border border-zinc-200 dark:border-zinc-800 text-zinc-500 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors shrink-0" aria-label="Close modal">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Modal Body (Scrollable) -->
+      <div class="p-6 overflow-y-auto space-y-8 text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+
+        <!-- Tech Stack Badges -->
+        <div>
+          <p class="text-xs font-semibold text-zinc-400 uppercase tracking-widest mb-2">Verified Production Stack</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700">PHP (Core SSR)</span>
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700">MySQL (Spatial City Coordinates)</span>
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700">Razorpay Payment Gateway</span>
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700">PHPMailer (SMTP Receipts)</span>
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700">Firebase Google Auth</span>
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700">JavaScript / AJAX</span>
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-green-50 dark:bg-zinc-800 text-green-600 dark:text-green-400 border border-green-200 dark:border-zinc-700">Android APK Distribution</span>
+          </div>
+        </div>
+
+        <!-- 1. Executive Summary -->
+        <div>
+          <h3 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-2">1. Executive Summary</h3>
+          <p class="text-zinc-600 dark:text-zinc-400">
+            <strong>Explore India</strong> is an end-to-end travel technology platform engineered to eliminate travel fragmentation in India's tourism ecosystem. The platform unifies <strong>tri-modal transport booking</strong> (flights with an interactive graphical 2D seat selector, railways, and distance-based cabs), <strong>dual-track itinerary planning</strong> (curated regional packages vs. dynamic custom builders), and a <strong>vetted local guide marketplace</strong> under a single transactional pipeline backed by Razorpay payment processing and automated SMTP booking documentation.
+          </p>
+        </div>
+
+        <!-- 2. Problem Statement -->
+        <div>
+          <h3 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-2">2. Problem Statement & Friction Points</h3>
+          <div class="grid sm:grid-cols-3 gap-4 mt-3">
+            <div class="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-100 dark:border-zinc-800">
+              <p class="font-bold text-zinc-900 dark:text-white mb-1">🚆 Disconnected Travel Silos</p>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400">Planning holidays in India traditionally requires switching between multiple portals for train booking, flights, inter-city cabs, and hotels with no unified booking workflow.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-100 dark:border-zinc-800">
+              <p class="font-bold text-zinc-900 dark:text-white mb-1">🧭 Lack of Vetted Guides</p>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400">Tourists struggle to find certified local guides with regional language fluency and historical knowledge, frequently falling victim to unregulated middlemen.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-100 dark:border-zinc-800">
+              <p class="font-bold text-zinc-900 dark:text-white mb-1">⚖️ Rigid vs. Overwhelming Choices</p>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400">Standard agencies push rigid, non-customizable group tours, whereas self-planning introduces high cognitive fatigue when aligning travel schedules and hotel tariffs.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. System Architecture Flow -->
+        <div>
+          <h3 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-3">3. System Architecture & Workflow</h3>
+          <div class="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50/70 dark:bg-zinc-950/70 p-4 sm:p-5 space-y-4">
+
+            <!-- Tier 1: Client Access -->
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[11px] font-bold tracking-wider uppercase text-zinc-400 dark:text-zinc-500">Tier 1 • Client Layer</span>
+                <span class="text-[10px] bg-zinc-200/70 dark:bg-zinc-800 px-2 py-0.5 rounded text-zinc-600 dark:text-zinc-400 font-medium">Multi-Platform Access</span>
+              </div>
+              <div class="grid sm:grid-cols-2 gap-3">
+                <div class="p-3 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 flex items-center gap-3 shadow-xs">
+                  <div class="w-10 h-10 rounded-lg bg-green-50 dark:bg-green-950/40 border border-green-200 dark:border-green-800 flex items-center justify-center text-green-600 dark:text-green-400 text-xl shrink-0">📱</div>
+                  <div>
+                    <p class="font-bold text-xs text-zinc-900 dark:text-white">Android Native Wrapper (APK)</p>
+                    <p class="text-[11px] text-zinc-500 dark:text-zinc-400">Standalone mobile app for on-the-go travelers</p>
+                  </div>
+                </div>
+                <div class="p-3 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 flex items-center gap-3 shadow-xs">
+                  <div class="w-10 h-10 rounded-lg bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800 flex items-center justify-center text-blue-600 dark:text-blue-400 text-xl shrink-0">💻</div>
+                  <div>
+                    <p class="font-bold text-xs text-zinc-900 dark:text-white">Responsive Web Platform</p>
+                    <p class="text-[11px] text-zinc-500 dark:text-zinc-400">Full-featured desktop & mobile web experience</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Connector 1 -->
+            <div class="flex items-center justify-center relative py-1">
+              <div class="h-6 w-px bg-zinc-300 dark:bg-zinc-700"></div>
+              <span class="absolute text-[10px] font-mono bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-300 px-2 py-0.5 rounded-full shadow-xs">HTTPS Protocol</span>
+            </div>
+
+            <!-- Tier 2: Application Tier -->
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[11px] font-bold tracking-wider uppercase text-zinc-400 dark:text-zinc-500">Tier 2 • Application Tier (Core PHP)</span>
+                <span class="text-[10px] bg-accent/10 border border-accent/20 px-2 py-0.5 rounded text-accent font-medium">Modular Engines</span>
+              </div>
+              <div class="grid sm:grid-cols-3 gap-3">
+                <div class="p-3 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 shadow-xs">
+                  <div class="flex items-center gap-1.5 text-xs font-bold text-zinc-900 dark:text-white mb-1">
+                    <span>✈️</span> Tri-Modal Transport
+                  </div>
+                  <p class="text-[11px] text-zinc-500 dark:text-zinc-400 leading-snug">Graphical 2D flight seat selector, railway routing & Haversine cab pricing</p>
+                </div>
+                <div class="p-3 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 shadow-xs">
+                  <div class="flex items-center gap-1.5 text-xs font-bold text-zinc-900 dark:text-white mb-1">
+                    <span>🗺️</span> Dual Itinerary Planner
+                  </div>
+                  <p class="text-[11px] text-zinc-500 dark:text-zinc-400 leading-snug">Curated regional packages + dynamic AJAX-driven custom trip builder</p>
+                </div>
+                <div class="p-3 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 shadow-xs">
+                  <div class="flex items-center gap-1.5 text-xs font-bold text-zinc-900 dark:text-white mb-1">
+                    <span>🧭</span> Guide Marketplace
+                  </div>
+                  <p class="text-[11px] text-zinc-500 dark:text-zinc-400 leading-snug">Self-onboarding with email verification tokens + strict admin audit gate</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Connector 2 -->
+            <div class="flex items-center justify-center relative py-1">
+              <div class="h-6 w-px bg-zinc-300 dark:bg-zinc-700"></div>
+              <span class="absolute text-[10px] font-mono bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-300 px-2 py-0.5 rounded-full shadow-xs">MySQLi / Prepared Statements</span>
+            </div>
+
+            <!-- Tier 3: Database Tier -->
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[11px] font-bold tracking-wider uppercase text-zinc-400 dark:text-zinc-500">Tier 3 • Database & Security Layer</span>
+                <span class="text-[10px] bg-zinc-200/70 dark:bg-zinc-800 px-2 py-0.5 rounded text-zinc-600 dark:text-zinc-400 font-medium">Relational Integrity</span>
+              </div>
+              <div class="p-3 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 shadow-xs">
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px]">
+                  <div class="p-2 rounded-lg bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-100 dark:border-zinc-800">
+                    <p class="font-bold text-zinc-900 dark:text-white">🗄️ `transport_cities`</p>
+                    <p class="text-[10px] text-zinc-500 dark:text-zinc-400">City lat/lng & airport codes</p>
+                  </div>
+                  <div class="p-2 rounded-lg bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-100 dark:border-zinc-800">
+                    <p class="font-bold text-zinc-900 dark:text-white">🗺️ `package` & `hotel`</p>
+                    <p class="text-[10px] text-zinc-500 dark:text-zinc-400">Regional tours & state hotels</p>
+                  </div>
+                  <div class="p-2 rounded-lg bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-100 dark:border-zinc-800">
+                    <p class="font-bold text-zinc-900 dark:text-white">🧭 `local_guide`</p>
+                    <p class="text-[10px] text-zinc-500 dark:text-zinc-400">Vetted guides & requests</p>
+                  </div>
+                  <div class="p-2 rounded-lg bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-100 dark:border-zinc-800">
+                    <p class="font-bold text-zinc-900 dark:text-white">💳 `bookings` & Razorpay</p>
+                    <p class="text-[10px] text-zinc-500 dark:text-zinc-400">SSL transaction logs</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- 4. Graphical Flight Seat Selector -->
+        <div>
+          <h3 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-2">4. Interactive Graphical Flight Seat Selector</h3>
+          <p class="text-xs text-zinc-500 dark:text-zinc-400 mb-3">Instead of a generic form dropdown, built a custom interactive visual aircraft cabin map:</p>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-800">
+              <p class="font-bold text-zinc-900 dark:text-white text-sm mb-1">2D Airplane Fuselage Map</p>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400">Rendered with aerodynamic nose/tail vector shapes, emergency exit rows, and a standard 3x3 seating grid (A, B, C | Aisle | D, E, F) accommodating up to 180 individual seats.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-800">
+              <p class="font-bold text-zinc-900 dark:text-white text-sm mb-1">Deterministic Seeded Occupancy</p>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400">Uses cyclic redundancy check hashing on the combined flight number and travel date to seed pseudo-random occupied seat maps. Returning visitors consistently observe the exact same occupied vs. available seat states for any specific scheduled flight.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-800">
+              <p class="font-bold text-zinc-900 dark:text-white text-sm mb-1">Real-time Client-Side State Management</p>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400">Enforces dynamic seat states (🟢 Available, 🔴 Booked, 🔵 Selected), restricts selections to selected passenger limits, and recalculates total fares before passing data to checkout.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. Haversine Inter-City Cab Engine -->
+        <div>
+          <h3 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-2">5. Inter-City Cab Engine via Haversine Distance</h3>
+          <p class="text-xs text-zinc-500 dark:text-zinc-400 mb-3">Calculates accurate spherical driving distances directly from stored city coordinates without requiring paid external map APIs:</p>
+          <div class="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-800">
+            <p class="font-bold text-zinc-900 dark:text-white text-sm mb-1">Mathematical Formulation</p>
+            <p class="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed mb-3">
+              Applies the Great-Circle Haversine Formula against origin and destination coordinates stored in the relational database ($R = 6371\text{ km}$), estimates driving durations, and dynamically calculates fares across vehicle classes:
+            </p>
+            <div class="grid grid-cols-3 gap-2 text-center text-xs">
+              <div class="p-2.5 rounded-lg bg-zinc-100 dark:bg-zinc-800/70 border border-zinc-200 dark:border-zinc-700">
+                <p class="font-bold text-zinc-900 dark:text-white">🚗 Mini</p>
+                <p class="text-[10px] text-zinc-500">₹12 / km</p>
+              </div>
+              <div class="p-2.5 rounded-lg bg-zinc-100 dark:bg-zinc-800/70 border border-zinc-200 dark:border-zinc-700">
+                <p class="font-bold text-zinc-900 dark:text-white">🚙 Sedan</p>
+                <p class="text-[10px] text-zinc-500">₹18 / km</p>
+              </div>
+              <div class="p-2.5 rounded-lg bg-zinc-100 dark:bg-zinc-800/70 border border-zinc-200 dark:border-zinc-700">
+                <p class="font-bold text-zinc-900 dark:text-white">🚐 Luxury SUV</p>
+                <p class="text-[10px] text-zinc-500">₹25 / km</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Dual-Track Itinerary & Guide Marketplace -->
+        <div>
+          <h3 class="font-display font-bold text-lg text-zinc-900 dark:text-white mb-2">6. Dual-Track Itinerary Planning & Vetted Guides</h3>
+          <div class="grid sm:grid-cols-2 gap-3">
+            <div class="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-800">
+              <p class="font-bold text-zinc-900 dark:text-white text-xs mb-1">🗺️ Dual Itinerary Modes</p>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400">Curated packages across 10+ states (Rajasthan, Gujarat, Himachal, Kashmir, Kerala, Sikkim) alongside a custom trip builder featuring asynchronous AJAX cascading dropdowns for real-time State-to-Hotel discovery.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-800">
+              <p class="font-bold text-zinc-900 dark:text-white text-xs mb-1">🧭 Two-Step Guide Verification</p>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400">Guides self-onboard with email token verification but remain unlisted until audited and approved by the platform administrator, protecting tourists from unvetted guides.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7. Payments & Security -->
+        <div class="p-5 rounded-2xl bg-green-50/70 dark:bg-zinc-800/60 border border-green-200/80 dark:border-zinc-700">
+          <p class="text-xs font-semibold text-green-600 dark:text-green-400 uppercase tracking-wider mb-1">Transactional Reliability & Security</p>
+          <p class="font-bold text-zinc-900 dark:text-white text-base">Razorpay Checkout & Automated Invoicing</p>
+          <p class="text-xs text-zinc-600 dark:text-zinc-400 mt-1">
+            Integrated 256-bit SSL Razorpay payment gateway handling advance payments across packages, transport, and guide bookings. Automated dispatches via PHPMailer with authenticated SMTP generate and deliver instant HTML receipts with unique booking reference IDs.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="px-6 py-4 border-t border-zinc-100 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50 flex flex-wrap items-center justify-between gap-3 shrink-0">
+        <div class="flex flex-wrap gap-2">
+          <a href="https://exploreindia.free.nf/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-medium text-white bg-accent px-4 py-2 rounded-full shimmer hover:bg-accent-light transition-colors">
+            Open Live Demo →
+          </a>
+          <a href="apks/Explore-India.apk" download="Explore-India.apk" class="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-full hover:border-accent transition-colors">
+            🤖 Download App
+          </a>
+          <a href="https://github.com/vasudev777" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-full hover:border-accent transition-colors">
+            GitHub Repo
+          </a>
+        </div>
+        <button @click="exploreModal = false" class="text-xs font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white px-3 py-2 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+          Close (Esc)
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 
   <!-- CERTIFICATIONS -->
 <section id="certifications" class="py-24">
@@ -1273,12 +1556,14 @@ function app() {
     sc: false,
     s: 'hero',
     shramModal: false,
+    exploreModal: false,
 
     init() {
       this.dark = localStorage.getItem('theme') === 'dark' ||
         (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
       this.$watch('dark', v => localStorage.setItem('theme', v ? 'dark' : 'light'));
       this.$watch('shramModal', v => document.body.style.overflow = v ? 'hidden' : '');
+      this.$watch('exploreModal', v => document.body.style.overflow = v ? 'hidden' : '');
 
       window.addEventListener('scroll', () => {
         this.sc = window.scrollY > 20;
