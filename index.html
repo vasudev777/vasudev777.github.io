@@ -94,8 +94,8 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
       <li><a href="#about"      class="nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors" :class="s==='about'?'on !text-zinc-900 dark:!text-white':''">About</a></li>
       <li><a href="#education"  class="nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors" :class="s==='education'?'on !text-zinc-900 dark:!text-white':''">Education</a></li>
       <li><a href="#projects"   class="nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors" :class="s==='projects'?'on !text-zinc-900 dark:!text-white':''">Projects</a></li>
-      <li><a href="#publications" class="nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors" :class="s==='publications'?'on !text-zinc-900 dark:!text-white':''">Publications</a></li>
       <li><a href="#certifications" class="nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors" :class="s==='certifications'?'on !text-zinc-900 dark:!text-white':''">Certifications</a></li>
+      <li><a href="#publications" class="nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors" :class="s==='publications'?'on !text-zinc-900 dark:!text-white':''">Publications</a></li>
       <li><a href="resume.pdf" target="_blank" class="nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors">Resume</a></li>
       <li><a href="#contact"    class="nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors" :class="s==='contact'?'on !text-zinc-900 dark:!text-white':''">Contact</a></li>
     </ul>
@@ -124,8 +124,8 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
       <li><a href="#about"        @click="mm=false" class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors">About</a></li>
       <li><a href="#education"    @click="mm=false" class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors">Education</a></li>
       <li><a href="#projects"     @click="mm=false" class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors">Projects</a></li>
-      <li><a href="#publications" @click="mm=false" class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors">Publications</a></li>
       <li><a href="#certifications" @click="mm=false" class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors">Certifications</a></li>
+      <li><a href="#publications" @click="mm=false" class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors">Publications</a></li>
       <li><a href="resume.pdf" target="_blank" @click="mm=false" class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors">Resume ↗</a></li>
       <li><a href="#contact"      @click="mm=false" class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors">Contact</a></li>
       <li class="pt-2 border-t border-zinc-100 dark:border-zinc-900">
@@ -167,10 +167,10 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
           </a>
           <a href="#contact" class="inline-flex items-center gap-2 border border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 font-medium px-7 py-3.5 rounded-full hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors text-sm">Get in touch</a>
         </div>
-        <div class="reveal d4 flex gap-8 mt-14 pt-8 border-t border-zinc-100 dark:border-zinc-900">
-          <div><p class="font-display font-bold text-3xl text-zinc-900 dark:text-white">3+</p><p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">Projects built</p></div>
-          <div><p class="font-display font-bold text-3xl text-zinc-900 dark:text-white">2+</p><p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">Certifications</p></div>
-          <div><p class="font-display font-bold text-3xl text-zinc-900 dark:text-white">1</p><p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">Research papers</p></div>
+        <div class="reveal d4 flex flex-wrap gap-6 sm:gap-8 mt-14 pt-8 border-t border-zinc-100 dark:border-zinc-900">
+          <div><p class="font-display font-bold text-3xl text-zinc-900 dark:text-white">4</p><p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">Live projects</p></div>
+          <div><p class="font-display font-bold text-3xl text-zinc-900 dark:text-white">3</p><p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">Certifications</p></div>
+          <div><p class="font-display font-bold text-3xl text-zinc-900 dark:text-white">1</p><p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">Research paper</p></div>
           <div><p class="font-display font-bold text-3xl text-zinc-900 dark:text-white">79.6%</p><p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">GATE percentile</p></div>
         </div>
       </div>
@@ -263,7 +263,7 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
         <p class="reveal text-xs font-medium text-accent tracking-widest uppercase mb-3">About me</p>
         <h2 class="reveal d1 font-display font-bold text-4xl md:text-5xl text-zinc-900 dark:text-white leading-tight mb-6">A bit about<br>who I am</h2>
 <p class="reveal d2 text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">
-  I'm Vasudev Parmar, a B.Tech Computer Science graduate from Parul University, Vadodara (CGPA 8.24). I don't just write code — I build things that work in the real world. Three of my projects are already live, including Shram, a labour hiring marketplace backed by published research paper. That's not a college assignment — that's a product.
+  I'm Vasudev Parmar, a B.Tech Computer Science graduate from Parul University, Vadodara (CGPA 8.24). I don't just write code — I build things that work in the real world. Four of my projects are already live, including Shram, a labour hiring marketplace backed by a published research paper. That's not a college assignment — that's a product.
 </p>
 <p class="reveal d3 text-zinc-500 dark:text-zinc-400 leading-relaxed mb-8">
   I've cleared GATE in both Computer Science (2024 & 2026) and Data Science & AI (2026) — not because I had to, but because I push until the job is done. I'm deeply interested in the technologies shaping the next decade: AI & ML, Agentic AI systems, Large Language Models, RAG pipelines, Cloud infrastructure on AWS, and full-stack development with modern frameworks. I believe the most meaningful work happens at the intersection of technology and real human problems — and that's exactly where I want to be. I'm here for the long game.
@@ -583,8 +583,8 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
         </div>
       </article>
 
-
-                <article class="reveal d3 card-h group bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:border-accent">
+      <!-- Explore India -->
+      <article class="reveal d3 card-h group bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:border-accent">
         <div class="bg-gradient-to-br from-green-50 to-green-100 dark:from-zinc-800 dark:to-zinc-700 w-full h-44 flex items-center justify-center">
           <div class="text-center">
             <span class="text-6xl">🗺️</span>
@@ -656,7 +656,7 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 <!-- SHRAM CASE STUDY MODAL -->
 <div x-show="shramModal" x-cloak
   @keydown.escape.window="shramModal = false"
-  class="fixed inset-0 z-50 overflow-y-auto"
+  class="fixed inset-0 z-[70] overflow-y-auto"
   aria-labelledby="shram-modal-title" role="dialog" aria-modal="true">
 
   <!-- Backdrop blur -->
@@ -956,7 +956,7 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 <!-- EXPLORE INDIA CASE STUDY MODAL -->
 <div x-show="exploreModal" x-cloak
   @keydown.escape.window="exploreModal = false"
-  class="fixed inset-0 z-50 overflow-y-auto"
+  class="fixed inset-0 z-[70] overflow-y-auto"
   aria-labelledby="explore-modal-title" role="dialog" aria-modal="true">
 
   <!-- Backdrop blur -->
@@ -1238,7 +1238,7 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 <!-- ZAIKA CASE STUDY MODAL -->
 <div x-show="zaikaModal" x-cloak
   @keydown.escape.window="zaikaModal = false"
-  class="fixed inset-0 z-50 overflow-y-auto"
+  class="fixed inset-0 z-[70] overflow-y-auto"
   aria-labelledby="zaika-modal-title" role="dialog" aria-modal="true">
 
   <!-- Backdrop blur -->
@@ -1505,7 +1505,7 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 <!-- WORKSPACE CONCIERGE CASE STUDY MODAL -->
 <div x-show="workspaceModal" x-cloak
   @keydown.escape.window="workspaceModal = false"
-  class="fixed inset-0 z-50 overflow-y-auto"
+  class="fixed inset-0 z-[70] overflow-y-auto"
   aria-labelledby="workspace-modal-title" role="dialog" aria-modal="true">
 
   <!-- Backdrop blur -->
@@ -2069,7 +2069,7 @@ function app() {
     updateSection() {
       const atBottom = (window.innerHeight + window.scrollY) >= document.body.scrollHeight - 60;
       if (atBottom) { this.s = 'contact'; return; }
-      const ids = ['contact','publications','projects','education','about','hero'];
+      const ids = ['contact','publications','certifications','projects','education','about','hero'];
       for (const id of ids) {
         const el = document.getElementById(id);
         if (el && window.scrollY >= el.offsetTop - 130) { this.s = id; return; }
