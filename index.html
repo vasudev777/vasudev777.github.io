@@ -1026,26 +1026,29 @@ function app() {
   const TELEGRAM_BOT_TOKEN = "8996825013:AAGGvI2yJxtwzYNL1DWaPKkKsJ24KTqih5s";
   const TELEGRAM_CHAT_ID = "914408277";
 
-  // 1. Live Users Presence (Accurate Real-time WebSockets)
-  try {
-    const connectedRef = ref(db, ".info/connected");
-    const presenceListRef = ref(db, "presence");
+  // 1. Live Users Presence (Deduplicated per device/network)
+  const connectedRef = ref(db, ".info/connected");
+  const presenceListRef = ref(db, "presence");
 
-    onValue(connectedRef, (snap) => {
-      if (snap.val() === true) {
-        const myPresenceRef = push(presenceListRef);
-        onDisconnect(myPresenceRef).remove();
-        set(myPresenceRef, { online_at: serverTimestamp() });
-      }
-    });
+  function registerPresence(sanitizedKey) {
+    try {
+      const myPresenceRef = ref(db, `presence/${sanitizedKey}`);
 
-    onValue(presenceListRef, (snap) => {
-      const count = snap.exists() ? Object.keys(snap.val()).length : 1;
-      const liveEl = document.getElementById("live-visitors-count");
-      if (liveEl) liveEl.textContent = count;
-    });
-  } catch (err) {
-    console.warn("Presence tracking error:", err);
+      onValue(connectedRef, (snap) => {
+        if (snap.val() === true) {
+          onDisconnect(myPresenceRef).remove();
+          set(myPresenceRef, { online_at: serverTimestamp() });
+        }
+      });
+
+      onValue(presenceListRef, (snap) => {
+        const count = snap.exists() ? Object.keys(snap.val()).length : 1;
+        const liveEl = document.getElementById("live-visitors-count");
+        if (liveEl) liveEl.textContent = count;
+      });
+    } catch (err) {
+      console.warn("Presence tracking error:", err);
+    }
   }
 
   // 2. Unique Visitors & Private Alert
@@ -1054,7 +1057,7 @@ function app() {
 
     try {
       onValue(uniqueCountRef, (snap) => {
-        const val = snap.val() || 0;
+        const val = snap.val() || 1;
         const viewEl = document.getElementById("unique-visitors-count");
         if (viewEl) viewEl.textContent = val.toLocaleString();
       });
@@ -1062,46 +1065,53 @@ function app() {
       console.warn("Stats counter error:", err);
     }
 
-    const sessionKey = "vp_visited_session";
-    const alreadyTrackedThisSession = sessionStorage.getItem(sessionKey);
-
-    let ipData = { ip: "unknown", city: "Unknown", region: "Unknown", country: "India", org: "Unknown" };
+    let ipData = { ip: "unknown", city: "India", region: "", country: "India", org: "Visitor" };
     try {
       const res = await fetch("https://ipwho.is/");
-      const data = await res.json();
-      if (data && data.success !== false) {
-        ipData = {
-          ip: data.ip || "unknown",
-          city: data.city || "Unknown",
-          region: data.region || "Unknown",
-          country: data.country || "India",
-          org: (data.connection && data.connection.isp) || data.org || "Unknown"
-        };
+      if (res.ok) {
+        const data = await res.json();
+        if (data && data.success !== false) {
+          ipData = {
+            ip: data.ip || "unknown",
+            city: data.city || "Unknown",
+            region: data.region || "Unknown",
+            country: data.country || "India",
+            org: (data.connection && data.connection.isp) || data.org || "Visitor"
+          };
+        }
       }
     } catch (e) {
       try {
-        const fallbackRes = await fetch("https://ipapi.co/json/");
+        const fallbackRes = await fetch("https://api.ipify.org?format=json");
         if (fallbackRes.ok) {
           const fData = await fallbackRes.json();
-          ipData = {
-            ip: fData.ip || "unknown",
-            city: fData.city || "Unknown",
-            region: fData.region || "Unknown",
-            country: fData.country_name || "India",
-            org: fData.org || "Unknown"
-          };
+          ipData.ip = fData.ip;
         }
-      } catch (err) {}
+      } catch (err2) {}
     }
 
     const rawIp = ipData.ip || "unknown";
-    const sanitizedIp = rawIp.replace(/[.:#$\[\]]/g, "_");
+    const sanitizedIp = (rawIp !== "unknown") 
+      ? rawIp.replace(/[.:#$\[\]]/g, "_") 
+      : "local_" + (localStorage.getItem("vp_uid") || (Math.random().toString(36).substring(2, 9)));
+
+    // Ensure client ID exists
+    if (!localStorage.getItem("vp_uid")) {
+      localStorage.setItem("vp_uid", sanitizedIp);
+    }
+
+    // Register presence (All tabs on same laptop share this sanitizedIp, so count = 1!)
+    registerPresence(sanitizedIp);
+
+    // Check if this device has already been counted as unique
+    const alreadyCountedLocally = localStorage.getItem("vp_counted");
+    const sessionAlertSent = sessionStorage.getItem("vp_alert_sent");
 
     if (rawIp !== "unknown") {
       try {
         const visitorRef = ref(db, `visitors/${sanitizedIp}`);
         const visitorSnap = await get(visitorRef);
-        const isNewUnique = !visitorSnap.exists();
+        const isNewUnique = !visitorSnap.exists() && !alreadyCountedLocally;
 
         if (isNewUnique) {
           await set(visitorRef, {
@@ -1113,26 +1123,30 @@ function app() {
             device: getDeviceInfo()
           });
 
+          localStorage.setItem("vp_counted", "true");
           runTransaction(uniqueCountRef, (current) => (current || 0) + 1);
           sendTelegramAlert(ipData, true);
+          sessionStorage.setItem("vp_alert_sent", "true");
         } else {
-          if (!alreadyTrackedThisSession) {
+          // Returning visitor - alert once per session
+          if (!sessionAlertSent) {
             sendTelegramAlert(ipData, false);
+            sessionStorage.setItem("vp_alert_sent", "true");
           }
         }
       } catch (dbErr) {
-        console.warn("Database record error:", dbErr);
-        if (!alreadyTrackedThisSession) {
+        console.warn("DB error:", dbErr);
+        if (!sessionAlertSent) {
           sendTelegramAlert(ipData, false);
+          sessionStorage.setItem("vp_alert_sent", "true");
         }
       }
     } else {
-      if (!alreadyTrackedThisSession) {
+      if (!sessionAlertSent) {
         sendTelegramAlert(ipData, false);
+        sessionStorage.setItem("vp_alert_sent", "true");
       }
     }
-
-    sessionStorage.setItem(sessionKey, "true");
   }
 
   function getDeviceInfo() {
@@ -1159,7 +1173,7 @@ function app() {
                     window.location.protocol === "file:";
 
     const title = isLocal 
-      ? "🧪 <b>TEST VISIT (Local / Owner)</b>" 
+      ? "🧪 <b>PORTFOLIO TEST VISIT (Owner)</b>" 
       : (isNew ? "🚀 <b>NEW UNIQUE VISITOR!</b>" : "🔄 <b>Returning Visitor</b>");
 
     const device = getDeviceInfo();
@@ -1173,18 +1187,15 @@ function app() {
       `🕒 <b>Time:</b> ${timeStr} IST\n` +
       `🔗 <b>URL:</b> ${window.location.href}`;
 
-    // Telegram Bot API GET request (No CORS preflight restrictions in browser)
     const telegramUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(message)}&parse_mode=HTML`;
 
-    fetch(telegramUrl)
-      .then(r => r.json())
-      .then(res => {
-        if (res.ok) console.log("Telegram alert sent successfully!");
-        else console.warn("Telegram API response:", res);
-      })
-      .catch(err => {
-        console.warn("Telegram notification fetch error:", err);
-      });
+    // 100% Reliable Cross-Origin Dispatch
+    try {
+      const beacon = new Image();
+      beacon.src = telegramUrl;
+    } catch (e) {
+      fetch(telegramUrl, { mode: "no-cors" }).catch(() => {});
+    }
   }
 
   // Start tracking after load
