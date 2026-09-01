@@ -1154,31 +1154,37 @@ function app() {
   }
 
   function sendTelegramAlert(data, isNew) {
-    if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
-      return;
-    }
+    const isLocal = window.location.hostname === "localhost" || 
+                    window.location.hostname === "127.0.0.1" || 
+                    window.location.protocol === "file:";
 
-    const title = isNew ? "🚀 <b>NEW UNIQUE VISITOR!</b>" : "🔄 <b>Returning Visitor</b>";
+    const title = isLocal 
+      ? "🧪 <b>TEST VISIT (Local / Owner)</b>" 
+      : (isNew ? "🚀 <b>NEW UNIQUE VISITOR!</b>" : "🔄 <b>Returning Visitor</b>");
+
     const device = getDeviceInfo();
     const now = new Date();
     const timeStr = now.toLocaleTimeString("en-IN", { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit" });
 
     const message = `${title}\n\n` +
-      `📍 <b>Location:</b> ${data.city}, ${data.region}, ${data.country}\n` +
-      `🌐 <b>IP / Network:</b> <code>${data.ip}</code> (${data.org})\n` +
+      `📍 <b>Location:</b> ${data.city || 'Unknown'}, ${data.region || ''}, ${data.country || 'India'}\n` +
+      `🌐 <b>IP / ISP:</b> <code>${data.ip || 'Unknown'}</code> (${data.org || 'Unknown'})\n` +
       `📱 <b>Device:</b> ${device}\n` +
       `🕒 <b>Time:</b> ${timeStr} IST\n` +
-      `🔗 <b>Page:</b> ${window.location.pathname}`;
+      `🔗 <b>URL:</b> ${window.location.href}`;
 
-    fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        chat_id: TELEGRAM_CHAT_ID,
-        text: message,
-        parse_mode: "HTML"
+    // Telegram Bot API GET request (No CORS preflight restrictions in browser)
+    const telegramUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(message)}&parse_mode=HTML`;
+
+    fetch(telegramUrl)
+      .then(r => r.json())
+      .then(res => {
+        if (res.ok) console.log("Telegram alert sent successfully!");
+        else console.warn("Telegram API response:", res);
       })
-    }).catch(() => {});
+      .catch(err => {
+        console.warn("Telegram notification fetch error:", err);
+      });
   }
 
   // Start tracking after load
