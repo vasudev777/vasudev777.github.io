@@ -2337,31 +2337,9 @@ function app() {
       : (isNew ? "🚀 <b>NEW UNIQUE VISITOR!</b>" : "🔄 <b>Returning Visitor</b>");
     let detailLine = "";
 
-    switch (event) {
-      case "resume_download":
-        title = "🔥 <b>RESUME / CV DOWNLOADED!</b>";
-        detailLine = `📄 <b>File:</b> <code>${target || 'Vasudev_Parmar_Resume.pdf'}</code>\n`;
-        break;
-      case "app_download":
-        title = "📦 <b>ANDROID APP DOWNLOADED!</b>";
-        detailLine = `📱 <b>APK:</b> <code>${target}</code>\n`;
-        break;
-      case "certificate":
-        title = "🎓 <b>CERTIFICATE VERIFIED!</b>";
-        detailLine = `📜 <b>Credential:</b> ${target}\n`;
-        break;
-      case "publication":
-        title = "📑 <b>RESEARCH PAPER ACCESSED!</b>";
-        detailLine = `🔬 <b>Paper:</b> ${target}\n`;
-        break;
-      case "demo":
-        title = "⚡ <b>PROJECT LIVE DEMO OPENED!</b>";
-        detailLine = `🌐 <b>Project:</b> ${target}\n`;
-        break;
-      case "contact":
-        title = "💬 <b>CONTACT LINK CLICKED!</b>";
-        detailLine = `📬 <b>Channel:</b> ${target}\n`;
-        break;
+    if (event === "resume_download") {
+      title = "🔥 <b>RESUME / CV DOWNLOADED!</b>";
+      detailLine = `📄 <b>File:</b> <code>${target || 'Vasudev_Parmar_Resume.pdf'}</code>\n`;
     }
 
     const now = new Date();
@@ -2387,88 +2365,19 @@ function app() {
     }
   }
 
-  // 3. Hidden Interactive Action Monitoring (Resume, Apps, Certificates, Demos, Socials)
-  function trackAction(event, target) {
-    const key = `${event}_${target}`;
-    if (recentActionCooldowns.has(key)) return;
-    recentActionCooldowns.add(key);
-    setTimeout(() => recentActionCooldowns.delete(key), 45000); // 45s debounce per specific action
-
-    dispatchAlert({ event, target });
-  }
-
+  // 3. CV Download Monitor ONLY
   document.addEventListener("click", (e) => {
     const link = e.target.closest("a");
     if (!link) return;
     const href = link.getAttribute("href") || "";
 
-    // A. Resume Download
     if (href.includes("resume.pdf") || (link.hasAttribute("download") && href.endsWith(".pdf"))) {
-      trackAction("resume_download", "Vasudev_Parmar_Resume.pdf");
-      return;
-    }
+      const key = "resume_download";
+      if (recentActionCooldowns.has(key)) return;
+      recentActionCooldowns.add(key);
+      setTimeout(() => recentActionCooldowns.delete(key), 30000); // 30s debounce
 
-    // B. Android APK Downloads
-    if (href.includes(".apk")) {
-      const appName = href.split("/").pop() || "Android App";
-      trackAction("app_download", appName);
-      return;
-    }
-
-    // C. Certificate Verifications
-    if (href.includes("theforage.com")) {
-      trackAction("certificate", "Deloitte Data Analytics Job Simulation");
-      return;
-    }
-    if (href.includes("coursera.org/share/8f8eceeaa7a69558b70cf33333a559cd")) {
-      trackAction("certificate", "Michigan Python for Everybody");
-      return;
-    }
-    if (href.includes("coursera.org/share/4130117df06f1b040caebc4d35b6d46f")) {
-      trackAction("certificate", "Google AI Fundamentals");
-      return;
-    }
-    if (href.includes("kaggle.com/certification")) {
-      trackAction("certificate", "Google Kaggle AI Agents Intensive");
-      return;
-    }
-
-    // D. Research Publication
-    if (href.includes("ijaresm.com")) {
-      trackAction("publication", "IJARESM Journal — Shram Practical Approach");
-      return;
-    }
-
-    // E. Live Project Demos
-    if (href.includes("shram.free.nf")) {
-      trackAction("demo", "Shram Portal (shram.free.nf)");
-      return;
-    }
-    if (href.includes("zaikaa.free.nf")) {
-      trackAction("demo", "Zaika Restaurant (zaikaa.free.nf)");
-      return;
-    }
-    if (href.includes("exploreindia.free.nf")) {
-      trackAction("demo", "Explore India (exploreindia.free.nf)");
-      return;
-    }
-    if (href.includes("kaggle-capstone-agent.onrender.com")) {
-      trackAction("demo", "Kaggle Capstone Agent (Live Render)");
-      return;
-    }
-
-    // F. Contact Channels
-    if (href.startsWith("mailto:")) {
-      trackAction("contact", "Email (parmarvasudev63@gmail.com)");
-      return;
-    }
-    if (href.includes("linkedin.com/in/")) {
-      trackAction("contact", "LinkedIn Profile");
-      return;
-    }
-    if (href.includes("github.com/vasudev777") && !href.includes(".apk")) {
-      trackAction("contact", "GitHub Profile");
-      return;
+      dispatchAlert({ event: "resume_download", target: "Vasudev_Parmar_Resume.pdf" });
     }
   }, { passive: true });
 

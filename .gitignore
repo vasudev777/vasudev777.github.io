@@ -1,0 +1,3 @@
+# Ignore worker with credentials
+cloudflare_worker.js
+.env
