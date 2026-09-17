@@ -2110,12 +2110,18 @@ function app() {
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
 
-  // Protected Telegram Dispatch
+  // Cloudflare Worker URL (Set this to your Worker URL once deployed)
+  const CLOUDFLARE_WORKER_URL = ""; 
+
+  // Protected Telegram Dispatch (Fallback & Direct)
   const _k1 = "ODk5NjgyNTAxMzpBQUdH";
   const _k2 = "dkkyeUp4dHd6WU5MMURXYVBLa0tzSjI0S1RxaWg1cw==";
   const _c = "OTE0NDA4Mjc3";
   const getTelegramToken = () => atob(_k1 + _k2);
   const getTelegramChatId = () => atob(_c);
+
+  let cachedIpData = { ip: "unknown", city: "India", region: "", country: "India", org: "Visitor" };
+  const recentActionCooldowns = new Set();
 
   // Anti-Bot & Datacenter Filter
   function isBot(org = "") {
@@ -2172,13 +2178,12 @@ function app() {
       console.warn("Stats counter error:", err);
     }
 
-    let ipData = { ip: "unknown", city: "India", region: "", country: "India", org: "Visitor" };
     try {
       const res = await fetch("https://ipwho.is/");
       if (res.ok) {
         const data = await res.json();
         if (data && data.success !== false) {
-          ipData = {
+          cachedIpData = {
             ip: data.ip || "unknown",
             city: data.city || "Unknown",
             region: data.region || "Unknown",
@@ -2192,18 +2197,18 @@ function app() {
         const fallbackRes = await fetch("https://api.ipify.org?format=json");
         if (fallbackRes.ok) {
           const fData = await fallbackRes.json();
-          ipData.ip = fData.ip;
+          cachedIpData.ip = fData.ip;
         }
       } catch (err2) {}
     }
 
     // Filter out bots & automated cloud crawlers
-    if (isBot(ipData.org)) {
+    if (isBot(cachedIpData.org)) {
       console.info("Automated crawler filtered.");
       return;
     }
 
-    const rawIp = ipData.ip || "unknown";
+    const rawIp = cachedIpData.ip || "unknown";
     const sanitizedIp = (rawIp !== "unknown") 
       ? rawIp.replace(/[.:#$\[\]]/g, "_") 
       : "local_" + (localStorage.getItem("vp_uid") || (Math.random().toString(36).substring(2, 9)));
@@ -2229,34 +2234,34 @@ function app() {
         if (isNewUnique) {
           await set(visitorRef, {
             first_seen: serverTimestamp(),
-            city: ipData.city,
-            region: ipData.region,
-            country: ipData.country,
-            org: ipData.org,
+            city: cachedIpData.city,
+            region: cachedIpData.region,
+            country: cachedIpData.country,
+            org: cachedIpData.org,
             device: getDeviceInfo()
           });
 
           localStorage.setItem("vp_counted", "true");
           runTransaction(uniqueCountRef, (current) => (current || 0) + 1);
-          sendTelegramAlert(ipData, true);
+          dispatchAlert({ event: "visitor", isNew: true });
           sessionStorage.setItem("vp_alert_sent", "true");
         } else {
           // Returning visitor - alert once per session
           if (!sessionAlertSent) {
-            sendTelegramAlert(ipData, false);
+            dispatchAlert({ event: "visitor", isNew: false });
             sessionStorage.setItem("vp_alert_sent", "true");
           }
         }
       } catch (dbErr) {
         console.warn("DB error:", dbErr);
         if (!sessionAlertSent) {
-          sendTelegramAlert(ipData, false);
+          dispatchAlert({ event: "visitor", isNew: false });
           sessionStorage.setItem("vp_alert_sent", "true");
         }
       }
     } else {
       if (!sessionAlertSent) {
-        sendTelegramAlert(ipData, false);
+        dispatchAlert({ event: "visitor", isNew: false });
         sessionStorage.setItem("vp_alert_sent", "true");
       }
     }
@@ -2280,28 +2285,90 @@ function app() {
     return `${os} · ${browser}`;
   }
 
-  function sendTelegramAlert(data, isNew) {
+  // Universal Alert Dispatcher (Cloudflare Worker + Direct Telegram Fallback)
+  function dispatchAlert(payload) {
     const isLocal = window.location.hostname === "localhost" || 
                     window.location.hostname === "127.0.0.1" || 
                     window.location.protocol === "file:";
 
-    // Rate limit: Don't spam Telegram within 12 hours from the same browser
-    const lastAlert = localStorage.getItem("vp_last_alert_ts");
-    const nowTs = Date.now();
-    if (!isLocal && lastAlert && (nowTs - parseInt(lastAlert, 10)) < 12 * 60 * 60 * 1000) {
-      return;
-    }
-    localStorage.setItem("vp_last_alert_ts", nowTs.toString());
+    const event = payload.event || "visitor";
+    const target = payload.target || "";
+    const isNew = payload.isNew || false;
 
-    const title = isLocal 
-      ? "🧪 <b>PORTFOLIO TEST VISIT (Owner)</b>" 
-      : (isNew ? "🚀 <b>NEW UNIQUE VISITOR!</b>" : "🔄 <b>Returning Visitor</b>");
+    // Rate-limit general visits: 1 per 12 hours from same browser
+    if (event === "visitor") {
+      const lastAlert = localStorage.getItem("vp_last_alert_ts");
+      const nowTs = Date.now();
+      if (!isLocal && lastAlert && (nowTs - parseInt(lastAlert, 10)) < 12 * 60 * 60 * 1000) {
+        return;
+      }
+      localStorage.setItem("vp_last_alert_ts", nowTs.toString());
+    }
 
     const device = getDeviceInfo();
+    const data = cachedIpData;
+
+    // 1. If Cloudflare Worker is configured, route through it!
+    if (CLOUDFLARE_WORKER_URL && CLOUDFLARE_WORKER_URL.startsWith("http")) {
+      try {
+        fetch(CLOUDFLARE_WORKER_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            event,
+            target,
+            device,
+            url: window.location.href,
+            ip: data.ip,
+            city: data.city,
+            region: data.region,
+            country: data.country,
+            org: data.org
+          }),
+          mode: "cors"
+        }).catch(() => {});
+        return;
+      } catch (e) {}
+    }
+
+    // 2. Direct Fallback Dispatch
+    let title = isLocal 
+      ? "🧪 <b>PORTFOLIO TEST VISIT (Owner)</b>" 
+      : (isNew ? "🚀 <b>NEW UNIQUE VISITOR!</b>" : "🔄 <b>Returning Visitor</b>");
+    let detailLine = "";
+
+    switch (event) {
+      case "resume_download":
+        title = "🔥 <b>RESUME / CV DOWNLOADED!</b>";
+        detailLine = `📄 <b>File:</b> <code>${target || 'Vasudev_Parmar_Resume.pdf'}</code>\n`;
+        break;
+      case "app_download":
+        title = "📦 <b>ANDROID APP DOWNLOADED!</b>";
+        detailLine = `📱 <b>APK:</b> <code>${target}</code>\n`;
+        break;
+      case "certificate":
+        title = "🎓 <b>CERTIFICATE VERIFIED!</b>";
+        detailLine = `📜 <b>Credential:</b> ${target}\n`;
+        break;
+      case "publication":
+        title = "📑 <b>RESEARCH PAPER ACCESSED!</b>";
+        detailLine = `🔬 <b>Paper:</b> ${target}\n`;
+        break;
+      case "demo":
+        title = "⚡ <b>PROJECT LIVE DEMO OPENED!</b>";
+        detailLine = `🌐 <b>Project:</b> ${target}\n`;
+        break;
+      case "contact":
+        title = "💬 <b>CONTACT LINK CLICKED!</b>";
+        detailLine = `📬 <b>Channel:</b> ${target}\n`;
+        break;
+    }
+
     const now = new Date();
     const timeStr = now.toLocaleTimeString("en-IN", { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit" });
 
     const message = `${title}\n\n` +
+      detailLine +
       `📍 <b>Location:</b> ${data.city || 'Unknown'}, ${data.region || ''}, ${data.country || 'India'}\n` +
       `🌐 <b>IP / ISP:</b> <code>${data.ip || 'Unknown'}</code> (${data.org || 'Unknown'})\n` +
       `📱 <b>Device:</b> ${device}\n` +
@@ -2312,7 +2379,6 @@ function app() {
     const chatId = getTelegramChatId();
     const telegramUrl = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}&parse_mode=HTML`;
 
-    // Reliable Cross-Origin Dispatch
     try {
       const beacon = new Image();
       beacon.src = telegramUrl;
@@ -2321,7 +2387,92 @@ function app() {
     }
   }
 
-  // Human Engagement Gate: Only track when real human interacts or dwells
+  // 3. Hidden Interactive Action Monitoring (Resume, Apps, Certificates, Demos, Socials)
+  function trackAction(event, target) {
+    const key = `${event}_${target}`;
+    if (recentActionCooldowns.has(key)) return;
+    recentActionCooldowns.add(key);
+    setTimeout(() => recentActionCooldowns.delete(key), 45000); // 45s debounce per specific action
+
+    dispatchAlert({ event, target });
+  }
+
+  document.addEventListener("click", (e) => {
+    const link = e.target.closest("a");
+    if (!link) return;
+    const href = link.getAttribute("href") || "";
+
+    // A. Resume Download
+    if (href.includes("resume.pdf") || (link.hasAttribute("download") && href.endsWith(".pdf"))) {
+      trackAction("resume_download", "Vasudev_Parmar_Resume.pdf");
+      return;
+    }
+
+    // B. Android APK Downloads
+    if (href.includes(".apk")) {
+      const appName = href.split("/").pop() || "Android App";
+      trackAction("app_download", appName);
+      return;
+    }
+
+    // C. Certificate Verifications
+    if (href.includes("theforage.com")) {
+      trackAction("certificate", "Deloitte Data Analytics Job Simulation");
+      return;
+    }
+    if (href.includes("coursera.org/share/8f8eceeaa7a69558b70cf33333a559cd")) {
+      trackAction("certificate", "Michigan Python for Everybody");
+      return;
+    }
+    if (href.includes("coursera.org/share/4130117df06f1b040caebc4d35b6d46f")) {
+      trackAction("certificate", "Google AI Fundamentals");
+      return;
+    }
+    if (href.includes("kaggle.com/certification")) {
+      trackAction("certificate", "Google Kaggle AI Agents Intensive");
+      return;
+    }
+
+    // D. Research Publication
+    if (href.includes("ijaresm.com")) {
+      trackAction("publication", "IJARESM Journal — Shram Practical Approach");
+      return;
+    }
+
+    // E. Live Project Demos
+    if (href.includes("shram.free.nf")) {
+      trackAction("demo", "Shram Portal (shram.free.nf)");
+      return;
+    }
+    if (href.includes("zaikaa.free.nf")) {
+      trackAction("demo", "Zaika Restaurant (zaikaa.free.nf)");
+      return;
+    }
+    if (href.includes("exploreindia.free.nf")) {
+      trackAction("demo", "Explore India (exploreindia.free.nf)");
+      return;
+    }
+    if (href.includes("kaggle-capstone-agent.onrender.com")) {
+      trackAction("demo", "Kaggle Capstone Agent (Live Render)");
+      return;
+    }
+
+    // F. Contact Channels
+    if (href.startsWith("mailto:")) {
+      trackAction("contact", "Email (parmarvasudev63@gmail.com)");
+      return;
+    }
+    if (href.includes("linkedin.com/in/")) {
+      trackAction("contact", "LinkedIn Profile");
+      return;
+    }
+    if (href.includes("github.com/vasudev777") && !href.includes(".apk")) {
+      trackAction("contact", "GitHub Profile");
+      return;
+    }
+  }, { passive: true });
+
+  // 4. Human Engagement Gate
   let trackingInitialized = false;
   function triggerTrackingOnEngagement() {
     if (trackingInitialized) return;
@@ -2342,7 +2493,6 @@ function app() {
   window.addEventListener("touchstart", triggerTrackingOnEngagement, { passive: true, once: true });
   window.addEventListener("keydown", triggerTrackingOnEngagement, { passive: true, once: true });
 
-  // If user stays and reads without scrolling for 3.5s
   setTimeout(() => {
     if (!document.hidden && !trackingInitialized) {
       triggerTrackingOnEngagement();
