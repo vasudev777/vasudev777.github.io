@@ -2110,15 +2110,8 @@ function app() {
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
 
-  // Cloudflare Worker URL (Set this to your Worker URL once deployed)
-  const CLOUDFLARE_WORKER_URL = ""; 
-
-  // Protected Telegram Dispatch (Fallback & Direct)
-  const _k1 = "ODk5NjgyNTAxMzpBQUdH";
-  const _k2 = "dkkyeUp4dHd6WU5MMURXYVBLa0tzSjI0S1RxaWg1cw==";
-  const _c = "OTE0NDA4Mjc3";
-  const getTelegramToken = () => atob(_k1 + _k2);
-  const getTelegramChatId = () => atob(_c);
+  // Cloudflare Worker URL (Secure Relay — Zero Tokens in Frontend)
+  const CLOUDFLARE_WORKER_URL = "https://portfolio-alerts.parmarvasudev63.workers.dev/"; 
 
   let cachedIpData = { ip: "unknown", city: "India", region: "", country: "India", org: "Visitor" };
   const recentActionCooldowns = new Set();
@@ -2285,7 +2278,7 @@ function app() {
     return `${os} · ${browser}`;
   }
 
-  // Universal Alert Dispatcher (Cloudflare Worker + Direct Telegram Fallback)
+  // Universal Alert Dispatcher via Cloudflare Worker (100% Secret & Tokenless)
   function dispatchAlert(payload) {
     const isLocal = window.location.hostname === "localhost" || 
                     window.location.hostname === "127.0.0.1" || 
@@ -2308,61 +2301,25 @@ function app() {
     const device = getDeviceInfo();
     const data = cachedIpData;
 
-    // 1. If Cloudflare Worker is configured, route through it!
-    if (CLOUDFLARE_WORKER_URL && CLOUDFLARE_WORKER_URL.startsWith("http")) {
-      try {
-        fetch(CLOUDFLARE_WORKER_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            event,
-            target,
-            device,
-            url: window.location.href,
-            ip: data.ip,
-            city: data.city,
-            region: data.region,
-            country: data.country,
-            org: data.org
-          }),
-          mode: "cors"
-        }).catch(() => {});
-        return;
-      } catch (e) {}
-    }
-
-    // 2. Direct Fallback Dispatch
-    let title = isLocal 
-      ? "🧪 <b>PORTFOLIO TEST VISIT (Owner)</b>" 
-      : (isNew ? "🚀 <b>NEW UNIQUE VISITOR!</b>" : "🔄 <b>Returning Visitor</b>");
-    let detailLine = "";
-
-    if (event === "resume_download") {
-      title = "🔥 <b>RESUME / CV DOWNLOADED!</b>";
-      detailLine = `📄 <b>File:</b> <code>${target || 'Vasudev_Parmar_Resume.pdf'}</code>\n`;
-    }
-
-    const now = new Date();
-    const timeStr = now.toLocaleTimeString("en-IN", { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit" });
-
-    const message = `${title}\n\n` +
-      detailLine +
-      `📍 <b>Location:</b> ${data.city || 'Unknown'}, ${data.region || ''}, ${data.country || 'India'}\n` +
-      `🌐 <b>IP / ISP:</b> <code>${data.ip || 'Unknown'}</code> (${data.org || 'Unknown'})\n` +
-      `📱 <b>Device:</b> ${device}\n` +
-      `🕒 <b>Time:</b> ${timeStr} IST\n` +
-      `🔗 <b>URL:</b> ${window.location.href}`;
-
-    const token = getTelegramToken();
-    const chatId = getTelegramChatId();
-    const telegramUrl = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}&parse_mode=HTML`;
-
     try {
-      const beacon = new Image();
-      beacon.src = telegramUrl;
-    } catch (e) {
-      fetch(telegramUrl, { mode: "no-cors" }).catch(() => {});
-    }
+      fetch(CLOUDFLARE_WORKER_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          event,
+          target,
+          isNew,
+          device,
+          url: window.location.href,
+          ip: data.ip,
+          city: data.city,
+          region: data.region,
+          country: data.country,
+          org: data.org
+        }),
+        mode: "cors"
+      }).catch(() => {});
+    } catch (e) {}
   }
 
   // 3. CV Download Monitor ONLY
