@@ -96,7 +96,7 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
       <li><a href="#projects"   class="nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors" :class="s==='projects'?'on !text-zinc-900 dark:!text-white':''">Projects</a></li>
       <li><a href="#certifications" class="nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors" :class="s==='certifications'?'on !text-zinc-900 dark:!text-white':''">Certifications</a></li>
       <li><a href="#publications" class="nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors" :class="s==='publications'?'on !text-zinc-900 dark:!text-white':''">Publications</a></li>
-      <li><a href="resume.pdf" target="_blank" class="nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors">Resume</a></li>
+      <li><a href="resume.pdf" target="_blank" rel="noopener noreferrer" class="nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors">Resume</a></li>
       <li><a href="#contact"    class="nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors" :class="s==='contact'?'on !text-zinc-900 dark:!text-white':''">Contact</a></li>
     </ul>
 
@@ -126,7 +126,7 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
       <li><a href="#projects"     @click="mm=false" class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors">Projects</a></li>
       <li><a href="#certifications" @click="mm=false" class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors">Certifications</a></li>
       <li><a href="#publications" @click="mm=false" class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors">Publications</a></li>
-      <li><a href="resume.pdf" target="_blank" @click="mm=false" class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors">Resume ↗</a></li>
+      <li><a href="resume.pdf" target="_blank" rel="noopener noreferrer" @click="mm=false" class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors">Resume ↗</a></li>
       <li><a href="#contact"      @click="mm=false" class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors">Contact</a></li>
       <li class="pt-2 border-t border-zinc-100 dark:border-zinc-900">
         <a href="#contact" @click="mm=false" class="inline-flex shimmer bg-accent text-white font-medium text-sm px-5 py-2.5 rounded-full">Hire me →</a>
@@ -161,7 +161,7 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
             View my work
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
           </a>
-          <a href="resume.pdf" download="Vasudev_Parmar_Resume.pdf" target="_blank" class="inline-flex items-center gap-2 border border-accent text-accent hover:bg-accent hover:text-white font-medium px-7 py-3.5 rounded-full transition-colors text-sm group">
+          <a href="resume.pdf" download="Vasudev_Parmar_Resume.pdf" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 border border-accent text-accent hover:bg-accent hover:text-white font-medium px-7 py-3.5 rounded-full transition-colors text-sm group">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
             Download CV
           </a>
@@ -514,7 +514,7 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
     </div>
     <div class="grid md:grid-cols-2 gap-6">
 
-      <!-- Shram -->
+            <!-- Shram -->
       <article class="reveal d1 card-h group bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:border-accent">
         <div class="bg-gradient-to-br from-orange-50 to-orange-100 dark:from-zinc-800 dark:to-zinc-700 w-full h-44 flex items-center justify-center">
           <div class="text-center">
@@ -538,45 +538,10 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
             <button @click="shramModal = true" class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-full hover:border-accent transition-colors">
               📖 Case Study
             </button>
-            <!-- Android App Download Button (Outlined Style) -->
             <a href="apks/Shram.apk" download="Shram.apk" class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-full hover:border-accent transition-colors">
               🤖 Download App
             </a>
-            <a href="https://github.com/vasudev777" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-full hover:border-accent transition-colors">
-              GitHub →
-            </a>
-          </div>
-        </div>
-      </article>
-
-      <!-- Zaika -->
-      <article class="reveal d2 card-h group bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:border-accent">
-        <div class="bg-gradient-to-br from-red-50 to-red-100 dark:from-zinc-800 dark:to-zinc-700 w-full h-44 flex items-center justify-center">
-          <div class="text-center">
-            <span class="text-6xl">🍽️</span>
-            <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-2 font-medium">Virtual Restaurant Platform</p>
-          </div>
-        </div>
-        <div class="p-6">
-          <div class="flex flex-wrap gap-2 mb-3">
-            <span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700 px-3 py-1 rounded-full">PHP</span>
-            <span class="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-3 py-1 rounded-full">MySQL</span>
-            <span class="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-3 py-1 rounded-full">Bootstrap</span>
-          </div>
-          <h3 class="font-display font-bold text-xl text-zinc-900 dark:text-white mb-2">Zaika</h3>
-          <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">A dual-panel restaurant platform unifying admin-reviewed dine-in reservations, takeaway ordering with pickup-OTP verification, and an active surplus food donation pipeline connecting to local NGOs. Powered by PHPMailer SMTP and active session security.</p>
-          <div class="flex flex-wrap gap-3">
-            <a href="https://zaikaa.free.nf/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-sm font-medium text-white bg-accent px-4 py-2 rounded-full shimmer hover:bg-accent-light transition-colors">
-              Live Demo →
-            </a>
-            <button @click="zaikaModal = true" class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-full hover:border-accent transition-colors">
-              📖 Case Study
-            </button>
-            <!-- Android App Download Button (Outlined Style) -->
-            <a href="apks/Zaika.apk" download="Zaika.apk" class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-full hover:border-accent transition-colors">
-              🤖 Download App
-            </a>
-            <a href="https://github.com/vasudev777" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-full hover:border-accent transition-colors">
+            <a href="https://github.com/vasudev777/Shram" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-full hover:border-accent transition-colors">
               GitHub →
             </a>
           </div>
@@ -584,7 +549,7 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
       </article>
 
       <!-- Explore India -->
-      <article class="reveal d3 card-h group bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:border-accent">
+      <article class="reveal d2 card-h group bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:border-accent">
         <div class="bg-gradient-to-br from-green-50 to-green-100 dark:from-zinc-800 dark:to-zinc-700 w-full h-44 flex items-center justify-center">
           <div class="text-center">
             <span class="text-6xl">🗺️</span>
@@ -606,18 +571,49 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
             <button @click="exploreModal = true" class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-full hover:border-accent transition-colors">
               📖 Case Study
             </button>
-            <!-- Android App Download Button (Outlined Style) -->
             <a href="apks/Explore-India.apk" download="Explore-India.apk" class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-full hover:border-accent transition-colors">
               🤖 Download App
             </a>
-            <a href="https://github.com/vasudev777" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-full hover:border-accent transition-colors">
+            <a href="https://github.com/vasudev777/Explore-India" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-full hover:border-accent transition-colors">
               GitHub →
             </a>
           </div>
         </div>
       </article>
 
-      
+      <!-- Zaika -->
+      <article class="reveal d3 card-h group bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:border-accent">
+        <div class="bg-gradient-to-br from-red-50 to-red-100 dark:from-zinc-800 dark:to-zinc-700 w-full h-44 flex items-center justify-center">
+          <div class="text-center">
+            <span class="text-6xl">🍽️</span>
+            <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-2 font-medium">Virtual Restaurant Platform</p>
+          </div>
+        </div>
+        <div class="p-6">
+          <div class="flex flex-wrap gap-2 mb-3">
+            <span class="text-xs bg-orange-50 dark:bg-zinc-800 text-accent border border-orange-200 dark:border-zinc-700 px-3 py-1 rounded-full">PHP</span>
+            <span class="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-3 py-1 rounded-full">MySQL</span>
+            <span class="text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 px-3 py-1 rounded-full">Bootstrap</span>
+          </div>
+          <h3 class="font-display font-bold text-xl text-zinc-900 dark:text-white mb-2">Zaika</h3>
+          <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">A dual-panel restaurant platform unifying admin-reviewed dine-in reservations, takeaway ordering with pickup-OTP verification, and an active surplus food donation pipeline connecting to local NGOs. Powered by PHPMailer SMTP and active session security.</p>
+          <div class="flex flex-wrap gap-3">
+            <a href="https://zaikaa.free.nf/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-sm font-medium text-white bg-accent px-4 py-2 rounded-full shimmer hover:bg-accent-light transition-colors">
+              Live Demo →
+            </a>
+            <button @click="zaikaModal = true" class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-full hover:border-accent transition-colors">
+              📖 Case Study
+            </button>
+            <a href="apks/Zaika.apk" download="Zaika.apk" class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-full hover:border-accent transition-colors">
+              🤖 Download App
+            </a>
+            <a href="https://github.com/vasudev777/zaika-restaurant" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-sm font-medium text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-full hover:border-accent transition-colors">
+              GitHub →
+            </a>
+          </div>
+        </div>
+      </article>
+
       <!-- Workspace Concierge (AI Agents Project) -->
       <article class="reveal d4 card-h group bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:border-accent">
         <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 dark:from-zinc-800 dark:to-zinc-700 w-full h-44 flex items-center justify-center">
@@ -940,7 +936,7 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
           <a href="apks/Shram.apk" download="Shram.apk" class="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-full hover:border-accent transition-colors">
             🤖 Download App
           </a>
-          <a href="https://github.com/vasudev777" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-full hover:border-accent transition-colors">
+          <a href="https://github.com/vasudev777/Shram" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-full hover:border-accent transition-colors">
             GitHub Repo
           </a>
         </div>
@@ -1222,7 +1218,7 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
           <a href="apks/Explore-India.apk" download="Explore-India.apk" class="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-full hover:border-accent transition-colors">
             🤖 Download App
           </a>
-          <a href="https://github.com/vasudev777" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-full hover:border-accent transition-colors">
+          <a href="https://github.com/vasudev777/Explore-India" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-full hover:border-accent transition-colors">
             GitHub Repo
           </a>
         </div>
@@ -1489,7 +1485,7 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
           <a href="apks/Zaika.apk" download="Zaika.apk" class="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-full hover:border-accent transition-colors">
             🤖 Download App
           </a>
-          <a href="https://github.com/vasudev777" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-full hover:border-accent transition-colors">
+          <a href="https://github.com/vasudev777/zaika-restaurant" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-full hover:border-accent transition-colors">
             GitHub Repo
           </a>
         </div>
@@ -1837,75 +1833,158 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 <!-- CONTACT -->
 <section id="contact" class="py-24">
   <div class="max-w-6xl mx-auto px-6">
-    <div class="bg-zinc-900 dark:bg-zinc-800 rounded-3xl p-10 md:p-16">
-      <div class="grid md:grid-cols-2 gap-12 items-start">
+    <div class="bg-zinc-900 dark:bg-zinc-800 rounded-3xl p-8 md:p-14 border border-zinc-800 dark:border-zinc-700/60 shadow-2xl">
+      <div class="grid lg:grid-cols-12 gap-10 lg:gap-12 items-start">
 
-        <div>
-          <p class="reveal text-xs font-medium text-accent tracking-widest uppercase mb-3">Get in touch</p>
-          <h2 class="reveal d1 font-display font-bold text-4xl md:text-5xl text-white leading-tight mb-5">Let's connect</h2>
-          <p class="reveal d2 text-zinc-400 leading-relaxed mb-8">Open to full-time roles, internships, and M.Tech opportunities. Feel free to reach out!</p>
+        <!-- LEFT COLUMN: Contact Info & Credentials -->
+        <div class="lg:col-span-5 space-y-8">
+          <div>
+            <p class="reveal text-xs font-semibold text-accent tracking-widest uppercase mb-2">Get in touch</p>
+            <h2 class="reveal d1 font-display font-bold text-4xl md:text-5xl text-white leading-tight mb-4">Let's connect</h2>
+            <p class="reveal d2 text-zinc-400 text-sm md:text-base leading-relaxed">
+              Open to full-time engineering roles, high-impact internships, and M.Tech opportunities. Send a direct message or connect via any channel below.
+            </p>
+          </div>
 
-          <div class="reveal d3 flex flex-col gap-4">
-            <a href="mailto:parmarvasudev63@gmail.com" class="group flex items-center gap-3 text-zinc-400 hover:text-white transition-colors">
-              <span class="w-9 h-9 flex items-center justify-center bg-zinc-800 dark:bg-zinc-700 rounded-lg group-hover:bg-accent/20 transition-colors shrink-0">
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-              </span>
-              <span class="text-sm">parmarvasudev63@gmail.com</span>
-            </a>
-            <a href="https://www.linkedin.com/in/vasudev-parmar-1a9487214/" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-3 text-zinc-400 hover:text-white transition-colors">
-              <span class="w-9 h-9 flex items-center justify-center bg-zinc-800 dark:bg-zinc-700 rounded-lg group-hover:bg-accent/20 transition-colors shrink-0">
+          <!-- Direct Channels -->
+          <div class="reveal d3 flex flex-col gap-3">
+            <!-- Email Row with Instant Copy Button -->
+            <div class="flex items-center justify-between p-3.5 rounded-xl bg-zinc-800/80 dark:bg-zinc-900/60 border border-zinc-700/60 hover:border-accent transition-colors group">
+              <a href="mailto:parmarvasudev63@gmail.com" class="flex items-center gap-3 text-zinc-300 hover:text-white transition-colors truncate">
+                <span class="w-9 h-9 flex items-center justify-center bg-zinc-700/60 dark:bg-zinc-800 rounded-lg group-hover:bg-accent/20 transition-colors shrink-0 text-accent">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                </span>
+                <span class="text-xs sm:text-sm font-medium truncate">parmarvasudev63@gmail.com</span>
+              </a>
+              <button @click="copyEmail()" type="button" class="ml-2 px-2.5 py-1 text-xs font-medium rounded-md bg-zinc-700/70 hover:bg-accent hover:text-white text-zinc-300 transition-all shrink-0 flex items-center gap-1" :class="emailCopied ? '!bg-emerald-600 !text-white' : ''" title="Copy email address to clipboard">
+                <span x-text="emailCopied ? '✓ Copied' : 'Copy'">Copy</span>
+              </button>
+            </div>
+
+            <!-- LinkedIn -->
+            <a href="https://www.linkedin.com/in/vasudev-parmar-1a9487214/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 p-3.5 rounded-xl bg-zinc-800/80 dark:bg-zinc-900/60 border border-zinc-700/60 hover:border-accent transition-colors group text-zinc-300 hover:text-white">
+              <span class="w-9 h-9 flex items-center justify-center bg-zinc-700/60 dark:bg-zinc-800 rounded-lg group-hover:bg-accent/20 transition-colors shrink-0 text-accent">
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
               </span>
-              <span class="text-sm">linkedin.com/in/vasudev-parmar</span>
+              <span class="text-xs sm:text-sm font-medium">linkedin.com/in/vasudev-parmar</span>
             </a>
-            <a href="https://github.com/vasudev777" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-3 text-zinc-400 hover:text-white transition-colors">
-              <span class="w-9 h-9 flex items-center justify-center bg-zinc-800 dark:bg-zinc-700 rounded-lg group-hover:bg-accent/20 transition-colors shrink-0">
+
+            <!-- GitHub -->
+            <a href="https://github.com/vasudev777" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 p-3.5 rounded-xl bg-zinc-800/80 dark:bg-zinc-900/60 border border-zinc-700/60 hover:border-accent transition-colors group text-zinc-300 hover:text-white">
+              <span class="w-9 h-9 flex items-center justify-center bg-zinc-700/60 dark:bg-zinc-800 rounded-lg group-hover:bg-accent/20 transition-colors shrink-0 text-accent">
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
               </span>
-              <span class="text-sm">github.com/vasudev777</span>
+              <span class="text-xs sm:text-sm font-medium">github.com/vasudev777</span>
             </a>
+          </div>
+
+          <!-- Quick Info Grid -->
+          <div class="reveal d3 pt-4 border-t border-zinc-800 grid grid-cols-2 gap-3">
+            <div class="p-3 rounded-lg bg-zinc-800/40 border border-zinc-700/40">
+              <p class="text-[10px] text-zinc-500 uppercase tracking-widest font-semibold">Location</p>
+              <p class="text-xs text-zinc-300 font-medium mt-0.5">Vadodara, Gujarat</p>
+            </div>
+            <div class="p-3 rounded-lg bg-zinc-800/40 border border-zinc-700/40">
+              <p class="text-[10px] text-zinc-500 uppercase tracking-widest font-semibold">Education</p>
+              <p class="text-xs text-zinc-300 font-medium mt-0.5">B.Tech CSE · 8.24 CGPA</p>
+            </div>
+            <div class="p-3 rounded-lg bg-zinc-800/40 border border-zinc-700/40">
+              <p class="text-[10px] text-zinc-500 uppercase tracking-widest font-semibold">GATE CS '26</p>
+              <p class="text-xs text-zinc-300 font-medium mt-0.5">79.64% Percentile</p>
+            </div>
+            <div class="p-3 rounded-lg bg-zinc-800/40 border border-zinc-700/40">
+              <p class="text-[10px] text-zinc-500 uppercase tracking-widest font-semibold">Status</p>
+              <p class="text-xs text-emerald-400 font-medium mt-0.5">Open to Hire</p>
+            </div>
           </div>
         </div>
 
-        <div class="reveal d2 bg-zinc-800 dark:bg-zinc-700 rounded-2xl p-8">
-          <h3 class="font-display font-bold text-white text-xl mb-6">Quick Info</h3>
-          <div class="flex flex-col gap-5">
-            <div class="flex items-start gap-3">
-              <span class="text-accent text-lg mt-0.5">📍</span>
-              <div>
-                <p class="text-xs text-zinc-500 uppercase tracking-widest mb-0.5">Location</p>
-                <p class="text-zinc-300 text-sm">Vadodara, Gujarat, India</p>
-              </div>
+        <!-- RIGHT COLUMN: Interactive Direct Message Form -->
+        <div class="lg:col-span-7 bg-zinc-800/90 dark:bg-zinc-900/90 rounded-2xl p-6 sm:p-8 border border-zinc-700/70 shadow-xl relative">
+          <div class="flex items-center justify-between mb-6">
+            <div>
+              <h3 class="font-display font-bold text-white text-xl sm:text-2xl">Send a Message</h3>
+              <p class="text-xs text-zinc-400 mt-1">Delivered straight to Vasudev's direct notifications</p>
             </div>
-            <div class="flex items-start gap-3">
-              <span class="text-accent text-lg mt-0.5">🎓</span>
-              <div>
-                <p class="text-xs text-zinc-500 uppercase tracking-widest mb-0.5">Education</p>
-                <p class="text-zinc-300 text-sm">B.Tech CSE · Parul University · 8.24 CGPA</p>
-              </div>
-            </div>
-            <div class="flex items-start gap-3">
-              <span class="text-accent text-lg mt-0.5">📊</span>
-              <div>
-                <p class="text-xs text-zinc-500 uppercase tracking-widest mb-0.5">GATE</p>
-                <p class="text-zinc-300 text-sm">CS '24 (71.36%) · CS '26 (79.64%) · DA '26 (73.07%)</p>
-              </div>
-            </div>
-            <div class="flex items-start gap-3">
-              <span class="text-accent text-lg mt-0.5">💼</span>
-              <div>
-                <p class="text-xs text-zinc-500 uppercase tracking-widest mb-0.5">Status</p>
-                <p class="text-zinc-300 text-sm">Open to full-time & M.Tech opportunities</p>
-              </div>
-            </div>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              Live Notifier
+            </span>
           </div>
+
+          <form @submit.prevent="submitContact()" class="space-y-4">
+            <!-- Anti-bot Honeypot -->
+            <input type="text" x-model="contactHoneypot" class="hidden" tabindex="-1" autocomplete="off">
+
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-medium text-zinc-300 mb-1.5">Your Name <span class="text-accent">*</span></label>
+                <input type="text" x-model="contactName" required placeholder="John Doe" class="w-full px-3.5 py-2.5 rounded-xl bg-zinc-900/80 dark:bg-zinc-950 border border-zinc-700/80 focus:border-accent focus:ring-1 focus:ring-accent text-white text-sm placeholder-zinc-500 outline-none transition-all">
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-zinc-300 mb-1.5">Your Email <span class="text-accent">*</span></label>
+                <input type="email" x-model="contactEmail" required placeholder="john@example.com" class="w-full px-3.5 py-2.5 rounded-xl bg-zinc-900/80 dark:bg-zinc-950 border border-zinc-700/80 focus:border-accent focus:ring-1 focus:ring-accent text-white text-sm placeholder-zinc-500 outline-none transition-all">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-medium text-zinc-300 mb-1.5">Subject</label>
+              <input type="text" x-model="contactSubject" placeholder="Hiring / Project Discussion / Inquiry" class="w-full px-3.5 py-2.5 rounded-xl bg-zinc-900/80 dark:bg-zinc-950 border border-zinc-700/80 focus:border-accent focus:ring-1 focus:ring-accent text-white text-sm placeholder-zinc-500 outline-none transition-all">
+            </div>
+
+            <div>
+              <label class="block text-xs font-medium text-zinc-300 mb-1.5">Message <span class="text-accent">*</span></label>
+              <textarea x-model="contactMessage" required rows="4" maxlength="2500" placeholder="Hi Vasudev, I visited your portfolio and wanted to connect regarding..." class="w-full px-3.5 py-2.5 rounded-xl bg-zinc-900/80 dark:bg-zinc-950 border border-zinc-700/80 focus:border-accent focus:ring-1 focus:ring-accent text-white text-sm placeholder-zinc-500 outline-none transition-all resize-none"></textarea>
+            </div>
+
+            <!-- Submit Button & Feedback -->
+            <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3">
+              <button type="submit" :disabled="contactSending" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-accent hover:bg-accent-light disabled:opacity-50 text-white font-medium text-sm px-7 py-3 rounded-xl transition-all shadow-lg shadow-accent/20 cursor-pointer">
+                <template x-if="!contactSending">
+                  <span class="inline-flex items-center gap-2">
+                    Send Message
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                  </span>
+                </template>
+                <template x-if="contactSending">
+                  <span class="inline-flex items-center gap-2">
+                    <svg class="animate-spin w-4 h-4 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>
+                    Delivering...
+                  </span>
+                </template>
+              </button>
+
+              <span class="text-[11px] text-zinc-400">⚡ Instant direct notification</span>
+            </div>
+
+            <!-- Success Alert Banner -->
+            <div x-show="contactSuccess" x-transition class="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs flex items-start gap-3 mt-3">
+              <span class="text-base leading-none">✓</span>
+              <div>
+                <p class="font-bold">Message Delivered Successfully!</p>
+                <p class="mt-0.5 text-zinc-300">Vasudev has received your notification directly and will get back to your email shortly.</p>
+              </div>
+            </div>
+
+            <!-- Error / Fallback Banner -->
+            <div x-show="contactError" x-transition class="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs space-y-2 mt-3">
+              <p x-text="contactErrorMsg"></p>
+              <div class="flex flex-wrap gap-2 pt-1">
+                <a :href="'mailto:parmarvasudev63@gmail.com?subject=' + encodeURIComponent(contactSubject || 'Portfolio Inquiry') + '&body=' + encodeURIComponent('From: ' + contactName + ' (' + contactEmail + ')\\n\\n' + contactMessage)" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-accent text-white font-medium hover:bg-accent-light transition-colors">
+                  Open in Gmail / Email App ↗
+                </a>
+                <button type="button" @click="copyEmail()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-700 text-white font-medium hover:bg-zinc-600 transition-colors">
+                  Copy Email Address
+                </button>
+              </div>
+            </div>
+          </form>
         </div>
 
       </div>
     </div>
   </div>
 </section>
-
 </main>
 
 <footer class="border-t border-zinc-100 dark:border-zinc-900">
