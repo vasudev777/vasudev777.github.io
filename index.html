@@ -96,7 +96,6 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
       <li><a href="#projects"   class="nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors" :class="s==='projects'?'on !text-zinc-900 dark:!text-white':''">Projects</a></li>
       <li><a href="#certifications" class="nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors" :class="s==='certifications'?'on !text-zinc-900 dark:!text-white':''">Certifications</a></li>
       <li><a href="#publications" class="nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors" :class="s==='publications'?'on !text-zinc-900 dark:!text-white':''">Publications</a></li>
-      <li><a href="resume.pdf" target="_blank" rel="noopener noreferrer" class="nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors">Resume</a></li>
       <li><a href="#contact"    class="nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors" :class="s==='contact'?'on !text-zinc-900 dark:!text-white':''">Contact</a></li>
     </ul>
 
@@ -126,7 +125,6 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
       <li><a href="#projects"     @click="mm=false" class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors">Projects</a></li>
       <li><a href="#certifications" @click="mm=false" class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors">Certifications</a></li>
       <li><a href="#publications" @click="mm=false" class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors">Publications</a></li>
-      <li><a href="resume.pdf" target="_blank" rel="noopener noreferrer" @click="mm=false" class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors">Resume ↗</a></li>
       <li><a href="#contact"      @click="mm=false" class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors">Contact</a></li>
       <li class="pt-2 border-t border-zinc-100 dark:border-zinc-900">
         <a href="#contact" @click="mm=false" class="inline-flex shimmer bg-accent text-white font-medium text-sm px-5 py-2.5 rounded-full">Hire me →</a>
@@ -2260,7 +2258,9 @@ function app() {
             city: data.city || "Unknown",
             region: data.region || "Unknown",
             country: data.country || "India",
-            org: (data.connection && data.connection.isp) || data.org || "Visitor"
+            org: (data.connection && (data.connection.org || data.connection.isp)) || data.org || "Visitor",
+            postal: data.postal || "",
+            asn: (data.connection && data.connection.asn) ? ("AS" + data.connection.asn) : ""
           };
         }
       }
@@ -2380,6 +2380,34 @@ function app() {
     const device = getDeviceInfo();
     const data = cachedIpData;
 
+    // 1. Identify Traffic Source / Referrer (Where did they click from?)
+    let referrer = document.referrer ? document.referrer.trim() : "Direct / Bookmark";
+    if (referrer.includes("linkedin.com")) referrer = "LinkedIn (Job / Recruiter)";
+    else if (referrer.includes("wa.me") || referrer.includes("whatsapp")) referrer = "WhatsApp";
+    else if (referrer.includes("instagram.com")) referrer = "Instagram";
+    else if (referrer.includes("google.")) referrer = "Google Search";
+    else if (referrer.includes("github.com")) referrer = "GitHub Profile";
+    else if (referrer.includes("t.co") || referrer.includes("twitter.com")) referrer = "Twitter / X";
+
+    // 2. Identify Tracking Tag (?ref=..., ?hr=..., ?from=..., ?src=...)
+    let tag = "";
+    try {
+      const sp = new URLSearchParams(window.location.search);
+      tag = sp.get("ref") || sp.get("hr") || sp.get("from") || sp.get("src") || sp.get("utm_source") || "";
+    } catch(e) {}
+
+    // 3. Screen Profile & Resolution
+    const screenInfo = window.screen ? (window.screen.width + "x" + window.screen.height + " (" + (window.devicePixelRatio || 1) + "x DPR)") : "";
+
+    // 4. Hardware Fingerprint (CPU Cores, RAM, Network Type)
+    const specsParts = [];
+    if (navigator.hardwareConcurrency) specsParts.push(navigator.hardwareConcurrency + " Cores");
+    if (navigator.deviceMemory) specsParts.push(navigator.deviceMemory + " GB RAM");
+    if (navigator.connection && navigator.connection.effectiveType) {
+      specsParts.push(navigator.connection.effectiveType.toUpperCase() + (navigator.connection.downlink ? (" ~" + navigator.connection.downlink + "Mbps") : ""));
+    }
+    const specs = specsParts.join(" · ");
+
     try {
       fetch(CLOUDFLARE_WORKER_URL, {
         method: "POST",
@@ -2394,7 +2422,14 @@ function app() {
           city: data.city,
           region: data.region,
           country: data.country,
-          org: data.org
+          org: data.org,
+          postal: data.postal || "",
+          asn: data.asn || "",
+          referrer,
+          tag,
+          screen: screenInfo,
+          specs,
+          lang: navigator.language || "en"
         }),
         mode: "cors"
       }).catch(() => {});
