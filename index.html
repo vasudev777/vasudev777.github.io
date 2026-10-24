@@ -15,15 +15,22 @@
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@9..144,100..1000&display=swap" rel="stylesheet">
 
 <script>
 tailwind.config = {
   darkMode: 'class',
   theme: {
     extend: {
-      fontFamily: { display: ['PT Sans','sans-serif'], body: ['DM Sans','sans-serif'] },
-      colors: { accent: '#FF6B2B', 'accent-light': '#FF8F5C' }
+      fontFamily: {
+        sans: ['"Google Sans Flex"', '"Google Sans"', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'sans-serif'],
+        display: ['"Google Sans Flex"', '"Google Sans"', 'sans-serif'],
+        body: ['"Google Sans Flex"', '"Google Sans"', 'sans-serif']
+      },
+      colors: {
+        accent: '#FF6B2B',
+        'accent-light': '#FF8F5C'
+      }
     }
   }
 }
@@ -31,8 +38,14 @@ tailwind.config = {
 
 <style>
 *,*::before,*::after{box-sizing:border-box}
-html,body{font-family:'DM Sans',sans-serif}
-h1,h2,h3,h4,h5,h6{font-family:'PT Sans',sans-serif}
+html, body {
+  font-family: 'Google Sans Flex', 'Google Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  letter-spacing: 0.01em;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Google Sans Flex', 'Google Sans', sans-serif;
+  font-weight: 450;
+}
 body{transition:background-color .3s,color .3s}
 
 body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.35;
@@ -76,6 +89,22 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 .timeline-line{width:2px;background:#FF6B2B;opacity:0.2;flex-shrink:0}
 
 [x-cloak]{display:none!important}
+
+/* Google Antigravity Cursor & Typing Animation */
+.blinking-cursor {
+  display: inline-block;
+  height: 0.9em;
+  width: auto;
+  vertical-align: -0.08em;
+  margin-left: 4px;
+  animation: agyBlink .65s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes agyBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
 </style>
 </head>
 
@@ -145,8 +174,31 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 
       <div>
         <p class="reveal text-sm font-medium text-accent tracking-widest uppercase mb-4">Open to opportunities</p>
-        <h1 class="reveal d1 font-display font-bold text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight text-zinc-900 dark:text-white mb-6">
-          Hi, I'm <span class="text-accent">Vasudev</span>
+        <h1 class="reveal d1 font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.15] tracking-tight text-zinc-900 dark:text-white mb-6 font-normal">
+          Hi, I'm <span class="text-accent font-medium inline-flex items-baseline" x-data="{
+            words: ['Vasudev', 'Full Stack Developer', 'AI Enthusiast'],
+            current: 0,
+            text: '',
+            isDeleting: false,
+            type() {
+              const fullTxt = this.words[this.current];
+              if (this.isDeleting) {
+                this.text = fullTxt.substring(0, this.text.length - 1);
+              } else {
+                this.text = fullTxt.substring(0, this.text.length + 1);
+              }
+              let speed = this.isDeleting ? 38 : 78;
+              if (!this.isDeleting && this.text === fullTxt) {
+                speed = 2100;
+                this.isDeleting = true;
+              } else if (this.isDeleting && this.text === '') {
+                this.isDeleting = false;
+                this.current = (this.current + 1) % this.words.length;
+                speed = 380;
+              }
+              setTimeout(() => this.type(), speed);
+            }
+          }" x-init="type()"><span x-text="text" class="inline"></span><img src="data:image/png;base64,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" class="blinking-cursor" alt="|" /></span>
         </h1>
         <p class="reveal d2 text-lg md:text-xl text-zinc-500 dark:text-zinc-400 font-light leading-relaxed max-w-md mb-4">
           <strong class="font-medium text-zinc-700 dark:text-zinc-300">Full Stack Developer</strong> from Vadodara, Gujarat.
